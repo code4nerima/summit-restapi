@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs
 {
-    public class RegisterProgram
+    public class RegisterProgramRequest
     {
+
         [JsonPropertyName("title")]
         public ProgramTitle Title { set; get; }
 

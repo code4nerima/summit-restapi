@@ -27,7 +27,7 @@ namespace summit_restapi.Controllers
             {
                 Result = "1",
                 TimeStamp = DateTime.UtcNow,
-                Data = new RegisterProgramResponse()
+                Data = new ProgramKey()
                 {
                     ProgramId = request.Program.ProgramId
                 }
@@ -45,7 +45,7 @@ namespace summit_restapi.Controllers
     public class UpdateProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public RegisterProgramResponse Data { get; set; }
+        public ProgramKey Data { get; set; }
     }
 
 }

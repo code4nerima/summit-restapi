@@ -28,7 +28,7 @@ namespace summit_restapi.Controllers
             {
                 Result = "1",
                 TimeStamp = DateTime.UtcNow,
-                Data = new RegisterProgramResponse()
+                Data = new ProgramKey()
                 {
                     ProgramId = Guid.NewGuid().ToString()
                 }
@@ -39,11 +39,11 @@ namespace summit_restapi.Controllers
     public class CreateProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public RegisterProgram Program { get; set; }
+        public RegisterProgramRequest Program { get; set; }
     }
     public class CreateProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public RegisterProgramResponse Data { get; set; }
+        public ProgramKey Data { get; set; }
     }
 }
