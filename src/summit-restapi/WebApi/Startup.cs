@@ -1,4 +1,8 @@
-﻿using CfjSummit.Infrastructure.Contexts;
+﻿using CfjSummit.Domain;
+using CfjSummit.Domain.Repositories;
+using CfjSummit.Infrastructure.Contexts;
+using CfjSummit.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace WebApi
 {
@@ -27,6 +32,9 @@ namespace WebApi
             services.AddDbContext<CfjContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CfjContext"),
                 x => x.MigrationsAssembly(Configuration.GetValue<string>("MigrationAssembly"))).EnableSensitiveDataLogging());
+
+            services.AddMediatR(typeof(CfjSummitDomain).GetTypeInfo().Assembly);
+            services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 namespace CfjSummit.Domain.Repositories
 {
     public interface IQueryableRepository<TEntity>
     {
-        TEntity GetById();
-        IEnumerable<TEntity> GetAll();
-
+        TEntity GetById(long id);
+        IQueryable<TEntity> GetAll();
     }
 }

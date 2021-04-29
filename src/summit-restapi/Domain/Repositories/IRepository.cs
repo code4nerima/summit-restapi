@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Repositories
 {
@@ -9,5 +10,6 @@ namespace CfjSummit.Domain.Repositories
         void Update(TEntity entity);
         void Remove(TEntity entity);
         void RemoveById(long id);
+        ValueTask<int> SaveChangesAsync();
     }
 }

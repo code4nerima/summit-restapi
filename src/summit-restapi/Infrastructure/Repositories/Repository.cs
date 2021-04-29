@@ -1,48 +1,48 @@
-﻿using CfjSummit.Domain.Repositories;
+﻿using CfjSummit.Domain.Models.Entities;
+using CfjSummit.Domain.Repositories;
+using CfjSummit.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CfjSummit.Infrastructure.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        public Repository()
+        protected readonly DbContext _db;
+        protected readonly DbSet<TEntity> _table;
+        public Repository(CfjContext context)
         {
-
+            _db = context;
+            _table = _db.Set<TEntity>();
         }
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            entity.SetForInsert("aaa", DateTime.UtcNow);
+            _table.Add(entity);
         }
-
         public void AddRange(IReadOnlyCollection<TEntity> entities)
         {
-            throw new NotImplementedException();
+            entities.ToList().ForEach(x => Add(x));
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity GetById()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+        public IQueryable<TEntity> GetAll() => _table.AsNoTracking();
+        public TEntity GetById(long id) => _table.Find(id);
+        public void Remove(TEntity entity) => _table.Remove(entity);
 
         public void RemoveById(long id)
         {
-            throw new NotImplementedException();
+            var entity = GetById(id);
+            _table.Remove(entity);
         }
 
+        public async ValueTask<int> SaveChangesAsync() => await _db.SaveChangesAsync();
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            entity.SetForUpdate("aaa", DateTime.UtcNow);
+            _table.Update(entity);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
-using CfjSummit.Domain.Services.Application;
+using CfjSummit.Domain.Services.Application.UserProfileRegistration;
 using CfjSummit.WebApi.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace CfjSummit.WebApi.Controllers
 {
@@ -11,16 +13,22 @@ namespace CfjSummit.WebApi.Controllers
     [ApiController]
     public class CreateUserProfileController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public CreateUserProfileController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpPost]
-        public ActionResult<CreateUserProfileResponse> Post([FromBody] CreateUserProfileRequest request, [FromHeader] string authorization)
+        public async ValueTask<ActionResult<CreateUserProfileResponse>> PostAsync([FromBody] CreateUserProfileRequest request, [FromHeader] string authorization)
         {
             // authorizationで認証(Controller)
             // Validation(Model)
             // uidをキーに登録済チェック(Model)
             // OKなら登録(Repository)
             if (!string.IsNullOrEmpty(authorization)) { return Unauthorized(); }
-            var command = new CreateUserProfileCommand(request.Uid, request.UserProfile.UserName, request.UserProfile.UserRole);
-            _ = command.Execute();
+            var command = new CreateUserProfileCommand(request.Uid, request.UserProfile);
+            _ = await _mediator.Send(command);
             return new CreateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };
         }
 

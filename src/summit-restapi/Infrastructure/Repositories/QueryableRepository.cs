@@ -1,20 +1,22 @@
-﻿using CfjSummit.Domain.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using CfjSummit.Domain.Models.Entities;
+using CfjSummit.Domain.Repositories;
+using CfjSummit.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CfjSummit.Infrastructure.Repositories
 {
-    public class QueryableRepository<TEntity> : IQueryableRepository<TEntity>
+    public class QueryableRepository<TEntity> : IQueryableRepository<TEntity> where TEntity : Entity
     {
+        protected readonly DbSet<TEntity> _table;
 
-        public IEnumerable<TEntity> GetAll()
+        public QueryableRepository(CfjContext context)
         {
-            throw new NotImplementedException();
+            _table = context.Set<TEntity>();
         }
 
-        public TEntity GetById()
-        {
-            throw new NotImplementedException();
-        }
+        public IQueryable<TEntity> GetAll() => _table.AsNoTracking();
+
+        public TEntity GetById(long id) => _table.Find(id);
     }
 }

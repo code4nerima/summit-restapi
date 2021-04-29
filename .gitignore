@@ -342,10 +342,6 @@ healthchecksdb
 /terraform/.terraform/plugins/windows_amd64
 /terraform/terraform.tfstate
 /terraform/terraform.tfstate.backup
-/src/kintone2twitter/kintone2twitter/Properties/ServiceDependencies/kintone2twitter-appservice - Web Deploy/profile.arm.json
 
 dotnet-tools.json
-/src/kintone2twitter/kintone2twitter/appsettings.Development.json
-/src/kintone2twitter/kintone2twitter/Properties/ServiceDependencies/kintone2twitter20201121073703 - Web Deploy/profile.arm.json
-/src/kintone2twitter/kintone2twitter/Properties/launchSettings.json
-/src/kintone2twitter/kintone2twitter/Properties/ServiceDependencies/katsushika-sd-kintone2twitter-appservice - Web Deploy/profile.arm.json
+/src/summit-restapi/WebApi/Migrations
