@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.UserProfiles
 {
-    public class UserName
+    public class UserNameDTO
     {
         [JsonPropertyName("ja")]
         public string Ja { get; set; }

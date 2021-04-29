@@ -21,17 +21,17 @@ namespace summit_restapi.Controllers
             // OKなら登録(Repository) 
             // TODO Resultも1,0じゃなくて、Success/Failで返したいよね。
             if (authorization == "aaa") { return null; }
-            var item = new ProgramItem()
+            var item = new ProgramDTO()
             {
                 Category = ProgramCategory.Session,
-                Description = new ProgramDescription()
+                Description = new ProgramDescriptionDTO()
                 {
                     En = "hoge",
                     Ja = "hoge",
                     ZhCn = "hoge",
                     ZhTw = "hoge"
                 },
-                Title = new ProgramTitle()
+                Title = new ProgramTitleDTO()
                 {
                     En = "fuga",
                     Ja = "fuga",
@@ -39,12 +39,12 @@ namespace summit_restapi.Controllers
                     ZhTw = "piyopiyo"
                 }
             };
-            item.AddProgramOwner(new ProgramOwner() { Uid = "hoge9", UserName = new UserName() { En = "en9", Ja = "ja9", ZhCn = "zhcn9", ZhTw = "zhtw9" } });
-            item.AddProgramOwner(new ProgramOwner() { Uid = "hoge3", UserName = new UserName() { En = "en3", Ja = "ja3", ZhCn = "zhcn3", ZhTw = "zhtw3" } });
+            item.AddProgramOwner(new ProgramOwnerDTO() { Uid = "hoge9", UserName = new UserNameDTO() { En = "en9", Ja = "ja9", ZhCn = "zhcn9", ZhTw = "zhtw9" } });
+            item.AddProgramOwner(new ProgramOwnerDTO() { Uid = "hoge3", UserName = new UserNameDTO() { En = "en3", Ja = "ja3", ZhCn = "zhcn3", ZhTw = "zhtw3" } });
 
-            item.AddProgramMember(new ProgramMember() { Uid = "fuga1", UserName = new UserName() { En = "en1", Ja = "ja1", ZhCn = "zhcn1", ZhTw = "zhtw1" } });
-            item.AddProgramMember(new ProgramMember() { Uid = "fuga5", UserName = new UserName() { En = "en5", Ja = "ja5", ZhCn = "zhcn5", ZhTw = "zhtw5" } });
-            item.AddProgramMember(new ProgramMember() { Uid = "fuga3", UserName = new UserName() { En = "en3", Ja = "ja3", ZhCn = "zhcn3", ZhTw = "zhtw3" } });
+            item.AddProgramMember(new ProgramMemberDTO() { Uid = "fuga1", UserName = new UserNameDTO() { En = "en1", Ja = "ja1", ZhCn = "zhcn1", ZhTw = "zhtw1" } });
+            item.AddProgramMember(new ProgramMemberDTO() { Uid = "fuga5", UserName = new UserNameDTO() { En = "en5", Ja = "ja5", ZhCn = "zhcn5", ZhTw = "zhtw5" } });
+            item.AddProgramMember(new ProgramMemberDTO() { Uid = "fuga3", UserName = new UserNameDTO() { En = "en3", Ja = "ja3", ZhCn = "zhcn3", ZhTw = "zhtw3" } });
             return new GetProgramResponse()
             {
                 Result = "1",
@@ -57,12 +57,12 @@ namespace summit_restapi.Controllers
     public class GetProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramKey Data { get; set; }
+        public ProgramIdDTO Data { get; set; }
     }
     public class GetProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramItem Data { get; set; }
+        public ProgramDTO Data { get; set; }
     }
 
 }

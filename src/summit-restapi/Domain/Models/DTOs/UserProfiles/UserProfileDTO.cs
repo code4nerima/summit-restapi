@@ -3,10 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.UserProfiles
 {
-    public class UserProfile
+    public class UserProfileDTO
     {
         [JsonPropertyName("name")]
-        public UserName UserName { get; set; }
+        public UserNameDTO UserName { get; set; }
 
         //[JsonPropertyName("email")]
         //public string Email { get; set; }

@@ -1,12 +1,8 @@
 ﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using summit_restapi.ApiInterfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace summit_restapi.Controllers
 {
@@ -29,7 +25,7 @@ namespace summit_restapi.Controllers
     public class UpdateUserProfileRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public UserProfile UserProfile { get; set; }
+        public UserProfileDTO UserProfile { get; set; }
     }
 
     public class UpdateUserProfileResponse : AbstractResponseBody

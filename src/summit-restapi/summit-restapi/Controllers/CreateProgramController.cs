@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CfjSummit.Domain.Models.DTOs.Programs;
 using Microsoft.AspNetCore.Mvc;
 using summit_restapi.ApiInterfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using CfjSummit.Domain.Models;
-using CfjSummit.Domain.Models.DTOs.Programs;
 
 namespace summit_restapi.Controllers
 {
@@ -28,7 +23,7 @@ namespace summit_restapi.Controllers
             {
                 Result = "1",
                 TimeStamp = DateTime.UtcNow,
-                Data = new ProgramKey()
+                Data = new ProgramIdDTO()
                 {
                     ProgramId = Guid.NewGuid().ToString()
                 }
@@ -39,11 +34,11 @@ namespace summit_restapi.Controllers
     public class CreateProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public RegisterProgramRequest Program { get; set; }
+        public RegisterProgramRequestDTO Program { get; set; }
     }
     public class CreateProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramKey Data { get; set; }
+        public ProgramIdDTO Data { get; set; }
     }
 }
