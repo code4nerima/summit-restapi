@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace summit_restapi.ApiInterfaces
+namespace CfjSummit.WebApi.Interfaces
 {
     public abstract class AbstractRequestBody
     {
@@ -13,6 +9,5 @@ namespace summit_restapi.ApiInterfaces
 
         [JsonPropertyName("uid")]
         public string Uid { get; set; }
-
     }
 }

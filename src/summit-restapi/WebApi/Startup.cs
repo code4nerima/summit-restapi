@@ -1,18 +1,13 @@
+﻿using CfjSummit.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace summit_restapi
+namespace WebApi
 {
     public class Startup
     {
@@ -28,9 +23,14 @@ namespace summit_restapi
         {
 
             services.AddControllers();
+
+            services.AddDbContext<CfjContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("CfjContext"),
+                x => x.MigrationsAssembly(Configuration.GetValue<string>("MigrationAssembly"))).EnableSensitiveDataLogging());
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "summit_restapi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace summit_restapi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "summit_restapi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
             app.UseHttpsRedirection();

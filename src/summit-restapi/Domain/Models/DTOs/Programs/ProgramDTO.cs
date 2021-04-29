@@ -15,11 +15,11 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("description")]
         public ProgramDescriptionDTO Description { set; get; }
 
-        private List<ProgramOwnerDTO> _programOwners = new();
+        private readonly List<ProgramOwnerDTO> _programOwners = new();
         [JsonPropertyName("owners")]
         public IReadOnlyCollection<ProgramOwnerDTO> Owners => _programOwners;
 
-        private List<ProgramMemberDTO> _programMembers = new();
+        private readonly List<ProgramMemberDTO> _programMembers = new();
         [JsonPropertyName("members")]
         public IReadOnlyCollection<ProgramMemberDTO> Members => _programMembers;
 

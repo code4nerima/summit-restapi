@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace summit_restapi
+namespace WebApi
 {
     public class Program
     {

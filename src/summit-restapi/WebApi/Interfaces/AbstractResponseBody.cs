@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace summit_restapi.ApiInterfaces
+namespace CfjSummit.WebApi.Interfaces
 {
     public abstract class AbstractResponseBody
     {
@@ -13,6 +10,5 @@ namespace summit_restapi.ApiInterfaces
 
         [JsonPropertyName("timestamp")]
         public DateTime TimeStamp { set; get; }
-
     }
 }

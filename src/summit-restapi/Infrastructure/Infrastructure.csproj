@@ -2,12 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>CfjSummit.Domain</AssemblyName>
-    <RootNamespace>CfjSummit.Domain</RootNamespace>
+    <RootNamespace>CfjSummit.Infrastructure</RootNamespace>
+    <AssemblyName>CfjSummit.Infrastructure</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

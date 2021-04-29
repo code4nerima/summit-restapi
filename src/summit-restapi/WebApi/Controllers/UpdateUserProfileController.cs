@@ -1,35 +1,33 @@
 ﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
+using CfjSummit.WebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using summit_restapi.ApiInterfaces;
 using System;
 using System.Text.Json.Serialization;
 
-namespace summit_restapi.Controllers
+namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreateUserProfileController : ControllerBase
+    public class UpdateUserProfileController : ControllerBase
     {
         [HttpPost]
-        public CreateUserProfileResponse Post([FromBody] CreateUserProfileRequest request, [FromHeader] string authorization)
+        public UpdateUserProfileResponse Post([FromBody] UpdateUserProfileRequest request, [FromHeader] string authorization)
         {
             // authorizationで認証(Controller)
             // Validation(Model)
             // uidをキーに登録済チェック(Model)
             // OKなら登録(Repository)
             if (authorization == "aaa") { return null; }
-            return new CreateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };
+            return new UpdateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };
         }
     }
-
-    public class CreateUserProfileRequest : AbstractRequestBody
+    public class UpdateUserProfileRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
         public UserProfileDTO UserProfile { get; set; }
     }
 
-    public class CreateUserProfileResponse : AbstractResponseBody
+    public class UpdateUserProfileResponse : AbstractResponseBody
     {
     }
-
 }

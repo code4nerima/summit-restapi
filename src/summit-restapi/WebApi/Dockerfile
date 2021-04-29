@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["summit-restapi/summit-restapi.csproj", "summit-restapi/"]
-RUN dotnet restore "summit-restapi/summit-restapi.csproj"
+COPY ["WebApi/WebApi.csproj", "WebApi/"]
+RUN dotnet restore "WebApi/WebApi.csproj"
 COPY . .
-WORKDIR "/src/summit-restapi"
-RUN dotnet build "summit-restapi.csproj" -c Release -o /app/build
+WORKDIR "/src/WebApi"
+RUN dotnet build "WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "summit-restapi.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "summit-restapi.dll"]
+ENTRYPOINT ["dotnet", "WebApi.dll"]

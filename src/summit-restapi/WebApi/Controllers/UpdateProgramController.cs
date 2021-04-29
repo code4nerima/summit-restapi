@@ -1,10 +1,10 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
+using CfjSummit.WebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using summit_restapi.ApiInterfaces;
 using System;
 using System.Text.Json.Serialization;
 
-namespace summit_restapi.Controllers
+namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,9 +30,7 @@ namespace summit_restapi.Controllers
             };
         }
 
-
     }
-
     public class UpdateProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
@@ -43,5 +41,4 @@ namespace summit_restapi.Controllers
         [JsonPropertyName("data")]
         public ProgramIdDTO Data { get; set; }
     }
-
 }
