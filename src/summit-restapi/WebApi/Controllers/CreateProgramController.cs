@@ -22,11 +22,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<CreateProgramResponse>> PostAsync([FromBody] CreateProgramRequest request, [FromHeader] string authorization)
         {
-            // authorizationで認証(Controller)
-            // Validation(Model)
-            // uidをキーに登録済チェック(Model)
-            // OKなら登録(Repository)
-            // TODO Resultも1,0じゃなくて、Success/Failで返したいよね。
+            if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new CreateProgramCommand(request.Uid, request.Program);
             var newProgramId = await _mediator.Send(command);
 

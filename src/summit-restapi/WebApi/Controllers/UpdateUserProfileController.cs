@@ -23,10 +23,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<UpdateUserProfileResponse>> Post([FromBody] UpdateUserProfileRequest request, [FromHeader] string authorization)
         {
-            // authorizationで認証(Controller)
-            // Validation(Model)
-            // uidをキーに登録済チェック(Model)
-            // OKなら登録(Repository)
+            if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new UpdateUserProfileCommand(request.Uid, request.UserProfile);
             _ = await _mediator.Send(command);
             return new UpdateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };

@@ -22,11 +22,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<CreateUserProfileResponse>> PostAsync([FromBody] CreateUserProfileRequest request, [FromHeader] string authorization)
         {
-            // authorizationで認証(Controller)
-            // Validation(Model)
-            // uidをキーに登録済チェック(Model)
-            // OKなら登録(Repository)
-            if (!string.IsNullOrEmpty(authorization)) { return Unauthorized(); }
+            if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new CreateUserProfileCommand(request.Uid, request.UserProfile);
             _ = await _mediator.Send(command);
             return new CreateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };

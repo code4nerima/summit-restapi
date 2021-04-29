@@ -23,13 +23,9 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<DeleteProgramResponse>> PostAsync([FromBody] DeleteProgramRequest request, [FromHeader] string authorization)
         {
-            // authorizationで認証(Controller)
-            // Validation(Model)
-            // uidをキーに登録済チェック(Model)
-            // OKなら登録(Repository)
-            // TODO Resultも1,0じゃなくて、Success/Failで返したいよね。
+            if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new DeleteProgramCommand(request.Data.ProgramId);
-            var programId = await _mediator.Send(command);
+            _ = await _mediator.Send(command);
 
             return new DeleteProgramResponse()
             {
