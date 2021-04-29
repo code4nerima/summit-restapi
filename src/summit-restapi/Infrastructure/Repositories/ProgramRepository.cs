@@ -4,9 +4,9 @@ using CfjSummit.Infrastructure.Contexts;
 
 namespace CfjSummit.Infrastructure.Repositories
 {
-    public class UserProfileRepository : Repository<UserProfile>, IUserProfileRepository
+    public class ProgramRepository : Repository<Program>, IProgramRepository
     {
-        public UserProfileRepository(CfjContext context) : base(context)
+        public ProgramRepository(CfjContext context) : base(context)
         {
 
         }

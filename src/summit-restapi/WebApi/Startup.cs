@@ -35,6 +35,7 @@ namespace WebApi
 
             services.AddMediatR(typeof(CfjSummitDomain).GetTypeInfo().Assembly);
             services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+            services.AddScoped<IProgramRepository, ProgramRepository>();
 
             services.AddSwaggerGen(c =>
             {

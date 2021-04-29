@@ -13,6 +13,7 @@ namespace CfjSummit.Infrastructure.Repositories
     {
         protected readonly DbContext _db;
         protected readonly DbSet<TEntity> _table;
+        //TODO 更新ユーザと登録ユーザをDIする。
         public Repository(CfjContext context)
         {
             _db = context;

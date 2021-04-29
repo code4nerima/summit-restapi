@@ -8,9 +8,6 @@ namespace CfjSummit.Domain.Models.DTOs.UserProfiles
         [JsonPropertyName("name")]
         public UserNameDTO UserName { get; set; }
 
-        //[JsonPropertyName("email")]
-        //public string Email { get; set; }
-
         [JsonPropertyName("role")]
         public UserRole UserRole { get; set; }
     }

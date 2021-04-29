@@ -12,5 +12,6 @@ namespace CfjSummit.Infrastructure.Contexts
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Program> Programs { get; set; }
     }
 }
