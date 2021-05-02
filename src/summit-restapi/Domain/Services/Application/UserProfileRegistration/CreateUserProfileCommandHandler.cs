@@ -17,7 +17,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 
         public async Task<int> Handle(CreateUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var p = new UserProfile(request.Uid, request.UserProfileDTO);
+            var p = new UserProfile(request.UserProfileDTO);
             _repository.Add(p);
             return await _repository.SaveChangesAsync();
         }

@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CfjSummit.WebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CfjSummit.WebApi.Controllers
 {
@@ -12,4 +8,16 @@ namespace CfjSummit.WebApi.Controllers
     public class ListProgramController : ControllerBase
     {
     }
+    public class ListProgramRequest : AbstractRequestBody
+    {
+        //[JsonPropertyName("data")]
+        //public ListUserProfileRequestDTO Data { get; set; }
+    }
+
+    public class ListProgramResponse : AbstractResponseBody
+    {
+        //[JsonPropertyName("data")]
+        //public ListUserProfileResponseDTO Data { get; set; }
+    }
+
 }

@@ -10,9 +10,9 @@ namespace CfjSummit.Domain.Models.Entities
         {
 
         }
-        public UserProfile(string uid, UserProfileDTO dto)
+        public UserProfile(UserProfileDTO dto)
         {
-            Uid = uid;
+            Uid = dto.Uid;
             Name_Ja = dto.UserName?.Ja;
             Name_Ja_Kana = dto.UserName?.Ja_Kana;
             Name_En = dto.UserName?.En;
