@@ -23,7 +23,7 @@ namespace CfjSummit.WebApi.Controllers
         public async ValueTask<ActionResult<CreateProgramResponse>> PostAsync([FromBody] CreateProgramRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new CreateProgramCommand(request.Uid, request.Program);
+            var command = new CreateProgramCommand(request.Program);
             var newProgramId = await _mediator.Send(command);
 
             return new CreateProgramResponse()

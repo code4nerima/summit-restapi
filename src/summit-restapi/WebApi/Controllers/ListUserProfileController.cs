@@ -24,7 +24,7 @@ namespace CfjSummit.WebApi.Controllers
         public async ValueTask<ActionResult<ListUserProfileResponse>> PostAsync([FromBody] ListUserProfileRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var query = new ListUserProfileQuery(request.Data);
+            var query = new ListProgramQuery(request.Data);
             var item = await _mediator.Send(query);
 
             return new ListUserProfileResponse()

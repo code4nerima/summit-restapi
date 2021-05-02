@@ -20,7 +20,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         {
             var p = _repository.GetAll().SingleOrDefault(x => x.ProgramId == request.EditProgramRequestDTO.ProgramId);
             if (p == null) { throw new Exception(); }
-            p.Update(request.EditProgramRequestDTO.Title, request.EditProgramRequestDTO.Category, request.EditProgramRequestDTO.Description);
+            p.Update(request.EditProgramRequestDTO);
             _repository.Update(p);
             _ = await _repository.SaveChangesAsync();
             return p.ProgramId;
