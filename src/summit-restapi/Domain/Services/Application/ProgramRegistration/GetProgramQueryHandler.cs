@@ -19,7 +19,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<ProgramDTO> Handle(GetProgramQuery request, CancellationToken cancellationToken)
         {
-            var p = await _repository.GetAll().SingleOrDefaultAsync(x => x.ProgramId == request.ProgramId);
+            var p = await _repository.GetAll().SingleOrDefaultAsync(x => x.ProgramId == request.ProgramId, cancellationToken: cancellationToken);
             if (p == null) { return new ProgramDTO(); }
 
             var dto = new ProgramDTO()

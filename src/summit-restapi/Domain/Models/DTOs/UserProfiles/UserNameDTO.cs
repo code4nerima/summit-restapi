@@ -7,6 +7,9 @@ namespace CfjSummit.Domain.Models.DTOs.UserProfiles
         [JsonPropertyName("ja")]
         public string Ja { get; set; }
 
+        [JsonPropertyName("ja_kana")]
+        public string Ja_Kana { get; set; }
+
         [JsonPropertyName("en")]
         public string En { get; set; }
 

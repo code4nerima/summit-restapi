@@ -14,6 +14,7 @@ namespace CfjSummit.Domain.Models.Entities
         {
             Uid = uid;
             Name_Ja = dto.UserName?.Ja;
+            Name_Ja_Kana = dto.UserName?.Ja_Kana;
             Name_En = dto.UserName?.En;
             Name_Zh_Tw = dto.UserName?.ZhTw;
             Name_Zh_Cn = dto.UserName?.ZhCn;
@@ -24,6 +25,7 @@ namespace CfjSummit.Domain.Models.Entities
         public virtual string Uid { get; private set; }
         [Required]
         public virtual string Name_Ja { get; private set; }
+        public virtual string Name_Ja_Kana { get; private set; }
         public virtual string Name_En { get; private set; }
         public virtual string Name_Zh_Tw { get; private set; }
         public virtual string Name_Zh_Cn { get; private set; }
@@ -33,6 +35,7 @@ namespace CfjSummit.Domain.Models.Entities
         public void Update(UserProfileDTO dto)
         {
             Name_Ja = dto.UserName.Ja ?? Name_Ja;
+            Name_Ja_Kana = dto.UserName?.Ja_Kana;
             Name_En = dto.UserName.En ?? Name_En;
             Name_Zh_Tw = dto.UserName.ZhTw ?? Name_Zh_Tw;
             Name_Zh_Cn = dto.UserName.ZhCn ?? Name_Zh_Cn;
