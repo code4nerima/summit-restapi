@@ -24,7 +24,7 @@ namespace CfjSummit.WebApi.Controllers
         public async ValueTask<ActionResult<UpdateUserProfileResponse>> Post([FromBody] UpdateUserProfileRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new UpdateUserProfileCommand(request.Uid, request.UserProfile);
+            var command = new UpdateUserProfileCommand(request.UserProfile);
             _ = await _mediator.Send(command);
             return new UpdateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };
         }

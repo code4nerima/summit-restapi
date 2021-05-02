@@ -18,7 +18,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 
         public async Task<int> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var userProfile = _repository.GetAll().SingleOrDefault(x => x.Uid == request.Uid);
+            var userProfile = _repository.GetAll().SingleOrDefault(x => x.Uid == request.UserProfileDTO.Uid);
             if (userProfile == null) { throw new Exception(); }
 
             userProfile.Update(request.UserProfileDTO);

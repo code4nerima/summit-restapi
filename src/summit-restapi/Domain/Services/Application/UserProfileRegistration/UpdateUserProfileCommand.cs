@@ -6,12 +6,10 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 
     public class UpdateUserProfileCommand : IRequest<int>
     {
-        public string Uid { get; init; }
         public UserProfileDTO UserProfileDTO { get; init; }
 
-        public UpdateUserProfileCommand(string uid, UserProfileDTO dto)
+        public UpdateUserProfileCommand(UserProfileDTO dto)
         {
-            Uid = uid;
             UserProfileDTO = dto;
         }
     }

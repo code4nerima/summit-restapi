@@ -5,12 +5,10 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 {
     public class CreateUserProfileCommand : IRequest<int>
     {
-        public string Uid { get; init; }
         public UserProfileDTO UserProfileDTO { get; init; }
 
-        public CreateUserProfileCommand(string uid, UserProfileDTO dto)
+        public CreateUserProfileCommand(UserProfileDTO dto)
         {
-            Uid = uid;
             UserProfileDTO = dto;
         }
     }
