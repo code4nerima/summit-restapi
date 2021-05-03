@@ -21,7 +21,7 @@ namespace CfjSummit.Infrastructure.Repositories
         }
         public void Add(TEntity entity)
         {
-            entity.SetForInsert("aaa", DateTime.UtcNow);
+            entity.SetForInsert(DateTime.UtcNow);
             _table.Add(entity);
         }
         public void AddRange(IReadOnlyCollection<TEntity> entities)
@@ -42,7 +42,7 @@ namespace CfjSummit.Infrastructure.Repositories
         public async ValueTask<int> SaveChangesAsync() => await _db.SaveChangesAsync();
         public void Update(TEntity entity)
         {
-            entity.SetForUpdate("aaa", DateTime.UtcNow);
+            entity.SetForUpdate(DateTime.UtcNow);
             _table.Update(entity);
         }
     }

@@ -3,7 +3,6 @@ using CfjSummit.Domain.Services.Application.UserProfileRegistration;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -23,18 +22,16 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<GetUserProfileResponse>> PostAsync([FromBody] GetUserProfileRequest request, [FromHeader] string authorization)
         {
+            await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var query = new GetUserProfileQuery(request.Data.Uid);
             var item = await _mediator.Send(query);
 
             return new GetUserProfileResponse()
             {
-                Result = "1",
-                TimeStamp = DateTime.UtcNow,
                 Data = item
             };
         }
-
     }
     public class GetUserProfileRequest : AbstractRequestBody
     {

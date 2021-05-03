@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 {
-    public class ListUserProfileQueryHandler : IRequestHandler<ListUserProfileQuery, ListUserProfileResponseDTO>
+    public class ListUserProfileQueryHandler : IRequestHandler<ListProgramQuery, ListUserProfileResponseDTO>
     {
         private readonly IUserProfileRepository _repository;
 
@@ -17,7 +17,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
             _repository = repository;
         }
 
-        public async Task<ListUserProfileResponseDTO> Handle(ListUserProfileQuery request, CancellationToken cancellationToken)
+        public async Task<ListUserProfileResponseDTO> Handle(ListProgramQuery request, CancellationToken cancellationToken)
         {
             var takeCount = request.ListUserProfileRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }

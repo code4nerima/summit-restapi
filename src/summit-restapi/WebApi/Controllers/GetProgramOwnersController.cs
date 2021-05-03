@@ -10,41 +10,38 @@ namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreateProgramController : ControllerBase
+    public class GetProgramOwnersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public CreateProgramController(IMediator mediator)
+
+        public GetProgramOwnersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async ValueTask<ActionResult<CreateProgramResponse>> PostAsync([FromBody] CreateProgramRequest request, [FromHeader] string authorization)
+        public async ValueTask<ActionResult<GetProgramOwnersResponse>> PostAsync([FromBody] GetProgramOwnersRequest request, [FromHeader] string authorization)
         {
             await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new CreateProgramCommand(request.Data);
-            var newProgramId = await _mediator.Send(command);
-
-            return new CreateProgramResponse()
+            var query = new GetProgramOwnersQuery(request.Data);
+            var item = await _mediator.Send(query);
+            return new GetProgramOwnersResponse()
             {
-                Data = new ProgramIdDTO()
-                {
-                    ProgramId = newProgramId
-                }
+                Data = item
             };
         }
 
     }
-    public class CreateProgramRequest : AbstractRequestBody
-    {
-        [JsonPropertyName("data")]
-        public RegisterProgramRequestDTO Data { get; set; }
-    }
-    public class CreateProgramResponse : AbstractResponseBody
+    public class GetProgramOwnersRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
         public ProgramIdDTO Data { get; set; }
+    }
+    public class GetProgramOwnersResponse : AbstractResponseBody
+    {
+        [JsonPropertyName("data")]
+        public GetProgramOwnersResponseDTO Data { get; set; }
     }
 
 }
