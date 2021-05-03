@@ -3,7 +3,6 @@ using CfjSummit.Domain.Services.Application.UserProfileRegistration;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -29,8 +28,6 @@ namespace CfjSummit.WebApi.Controllers
 
             return new ListUserProfileResponse()
             {
-                Result = "1",
-                TimeStamp = DateTime.UtcNow,
                 Data = item
             };
         }

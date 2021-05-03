@@ -3,7 +3,6 @@ using CfjSummit.Domain.Services.Application.UserProfileRegistration;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -24,15 +23,15 @@ namespace CfjSummit.WebApi.Controllers
         public async ValueTask<ActionResult<UpdateUserProfileResponse>> Post([FromBody] UpdateUserProfileRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new UpdateUserProfileCommand(request.UserProfile);
+            var command = new UpdateUserProfileCommand(request.Data);
             _ = await _mediator.Send(command);
-            return new UpdateUserProfileResponse() { Result = "1", TimeStamp = DateTime.UtcNow };
+            return new UpdateUserProfileResponse();
         }
     }
     public class UpdateUserProfileRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public UserProfileDTO UserProfile { get; set; }
+        public UserProfileDTO Data { get; set; }
     }
 
     public class UpdateUserProfileResponse : AbstractResponseBody

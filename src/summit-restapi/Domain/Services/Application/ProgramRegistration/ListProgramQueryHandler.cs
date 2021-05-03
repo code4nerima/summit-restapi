@@ -23,10 +23,11 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             var takeCount = request.ListProgramRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
-                .OrderBy(x => x.Date).ThenBy(x => x.StartTime)
+                .OrderBy(x => x.Date)
+                .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
                 .Take(takeCount)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
             return new ListProgramResponseDTO()
             {

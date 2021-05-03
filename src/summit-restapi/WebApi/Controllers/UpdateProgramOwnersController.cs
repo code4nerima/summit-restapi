@@ -10,32 +10,31 @@ namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DeleteProgramController : ControllerBase
+    public class UpdateProgramOwnersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public DeleteProgramController(IMediator mediator)
+        public UpdateProgramOwnersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async ValueTask<ActionResult<DeleteProgramResponse>> PostAsync([FromBody] DeleteProgramRequest request, [FromHeader] string authorization)
+        public async ValueTask<ActionResult<UpdateProgramOwnersResponse>> PostAsync([FromBody] UpdateProgramOwnersRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new DeleteProgramCommand(request.Data.ProgramId);
+            var command = new UpdateProgramOwnersCommand(request.Data);
             _ = await _mediator.Send(command);
-
-            return new DeleteProgramResponse();
+            return new UpdateProgramOwnersResponse();
         }
 
     }
-    public class DeleteProgramRequest : AbstractRequestBody
+    public class UpdateProgramOwnersRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public UpdateProgramOwnersRequestDTO Data { get; set; }
     }
-    public class DeleteProgramResponse : AbstractResponseBody
+    public class UpdateProgramOwnersResponse : AbstractResponseBody
     {
     }
 

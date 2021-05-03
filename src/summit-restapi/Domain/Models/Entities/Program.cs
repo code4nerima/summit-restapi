@@ -1,6 +1,8 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace CfjSummit.Domain.Models.Entities
 {
@@ -57,6 +59,14 @@ namespace CfjSummit.Domain.Models.Entities
             Description_Zh_Tw = dto.Description.ZhTw;
             Description_Zh_Cn = dto.Description.ZhCn;
 
+        }
+
+        private readonly List<ProgramOwner> _programOwners = new();
+        public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
+        public void UpdateProgramOwner(IEnumerable<string> uidList)
+        {
+            _programOwners.Clear();
+            _programOwners.AddRange(uidList.Select(uid => new ProgramOwner(uid)));
         }
     }
 }

@@ -10,37 +10,37 @@ namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GetProgramController : ControllerBase
+    public class GetProgramOwnersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public GetProgramController(IMediator mediator)
+        public GetProgramOwnersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async ValueTask<ActionResult<GetProgramResponse>> PostAsync([FromBody] GetProgramRequest request, [FromHeader] string authorization)
+        public async ValueTask<ActionResult<GetProgramOwnersResponse>> PostAsync([FromBody] GetProgramOwnersRequest request, [FromHeader] string authorization)
         {
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var query = new GetProgramQuery(request.Data.ProgramId);
+            var query = new GetProgramOwnersQuery(request.Data);
             var item = await _mediator.Send(query);
-
-            return new GetProgramResponse()
+            return new GetProgramOwnersResponse()
             {
                 Data = item
             };
         }
 
     }
-    public class GetProgramRequest : AbstractRequestBody
+    public class GetProgramOwnersRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
         public ProgramIdDTO Data { get; set; }
     }
-    public class GetProgramResponse : AbstractResponseBody
+    public class GetProgramOwnersResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramDTO Data { get; set; }
+        public GetProgramOwnersResponseDTO Data { get; set; }
     }
+
 }
