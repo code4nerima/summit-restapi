@@ -22,6 +22,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<DeleteProgramResponse>> PostAsync([FromBody] DeleteProgramRequest request, [FromHeader] string authorization)
         {
+            await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new DeleteProgramCommand(request.Data.ProgramId);
             _ = await _mediator.Send(command);

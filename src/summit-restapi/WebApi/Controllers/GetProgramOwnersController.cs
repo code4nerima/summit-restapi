@@ -22,6 +22,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<GetProgramOwnersResponse>> PostAsync([FromBody] GetProgramOwnersRequest request, [FromHeader] string authorization)
         {
+            await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var query = new GetProgramOwnersQuery(request.Data);
             var item = await _mediator.Send(query);

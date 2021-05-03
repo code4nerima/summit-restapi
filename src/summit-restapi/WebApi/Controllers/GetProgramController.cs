@@ -22,6 +22,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<GetProgramResponse>> PostAsync([FromBody] GetProgramRequest request, [FromHeader] string authorization)
         {
+            await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var query = new GetProgramQuery(request.Data.ProgramId);
             var item = await _mediator.Send(query);

@@ -21,6 +21,7 @@ namespace CfjSummit.WebApi.Controllers
         [HttpPost]
         public async ValueTask<ActionResult<CreateUserProfileResponse>> PostAsync([FromBody] CreateUserProfileRequest request, [FromHeader] string authorization)
         {
+            await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new CreateUserProfileCommand(request.Data);
             _ = await _mediator.Send(command);
