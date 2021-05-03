@@ -52,6 +52,11 @@ namespace CfjSummit.Domain.Models.Entities
             StartTime = dto.StartTime;
             EndTime = dto.EndTime;
             TrackId = dto.TrackId;
+            Description_Ja = dto.Description.Ja;
+            Description_En = dto.Description.En;
+            Description_Zh_Tw = dto.Description.ZhTw;
+            Description_Zh_Cn = dto.Description.ZhCn;
+
         }
     }
 }
