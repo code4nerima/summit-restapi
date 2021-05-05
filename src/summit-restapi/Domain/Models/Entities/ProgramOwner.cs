@@ -6,11 +6,14 @@
         {
 
         }
-        public ProgramOwner(string uid)
+        public ProgramOwner(UserProfile userProfile)
         {
-            Uid = uid;
+            UserProfile = userProfile;
         }
+
+        //private string Uid { get; private set; }
         public virtual Program Program { get; private set; }
-        public virtual string Uid { get; private set; }
+        public UserProfile UserProfile { private set; get; }
+        //public virtual string Uid { get; private set; }
     }
 }

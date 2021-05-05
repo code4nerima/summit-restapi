@@ -1,4 +1,5 @@
 ﻿using CfjSummit.Domain.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -12,24 +13,28 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("category")]
         public ProgramCategory Category { set; get; }
 
+        [JsonPropertyName("date")]
+        public DateTime Date { set; get; }
+
+        [JsonPropertyName("startTime")]
+        public string StartTime { set; get; }
+
+        [JsonPropertyName("endTime")]
+        public string EndTime { set; get; }
+
+        [JsonPropertyName("trackId")]
+        public string TrackId { set; get; }
+
         [JsonPropertyName("description")]
         public ProgramDescriptionDTO Description { set; get; }
 
-        private readonly List<ProgramOwnerDTO> _programOwners = new();
         [JsonPropertyName("owners")]
-        public IReadOnlyCollection<ProgramOwnerDTO> Owners => _programOwners;
+        public List<ProgramOwnerDTO> ProgramOwners { set; get; } = new();
 
-        private readonly List<ProgramMemberDTO> _programMembers = new();
+        [JsonPropertyName("presenters")]
+        public List<ProgramPresenterDTO> ProgramPresenters { set; get; } = new();
+
         [JsonPropertyName("members")]
-        public IReadOnlyCollection<ProgramMemberDTO> Members => _programMembers;
-
-        public void AddProgramOwner(ProgramOwnerDTO programOwner)
-        {
-            _programOwners.Add(programOwner);
-        }
-        public void AddProgramMember(ProgramMemberDTO programMember)
-        {
-            _programMembers.Add(programMember);
-        }
+        public List<ProgramMemberDTO> ProgramMembers { set; get; } = new();
     }
 }
