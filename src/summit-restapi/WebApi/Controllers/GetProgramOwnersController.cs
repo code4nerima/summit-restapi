@@ -1,4 +1,5 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
+using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Services.Application.ProgramRegistration;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;
@@ -36,7 +37,7 @@ namespace CfjSummit.WebApi.Controllers
     public class GetProgramOwnersRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public ProgramKeyDataDTO Data { get; set; }
     }
     public class GetProgramOwnersResponse : AbstractResponseBody
     {

@@ -1,4 +1,4 @@
-﻿using CfjSummit.Domain.Models.DTOs.Programs;
+﻿using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Services.Application.ProgramRegistration;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;

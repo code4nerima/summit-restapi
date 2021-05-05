@@ -18,9 +18,9 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<string> Handle(UpdateProgramCommand request, CancellationToken cancellationToken)
         {
-            var p = _repository.GetAll().SingleOrDefault(x => x.ProgramId == request.EditProgramRequestDTO.ProgramId);
+            var p = _repository.GetAll().SingleOrDefault(x => x.ProgramId == request.ProgramPartsDataDTO.ProgramId);
             if (p == null) { throw new Exception(); }
-            p.Update(request.EditProgramRequestDTO);
+            p.Update(request.ProgramPartsDataDTO);
             _repository.Update(p);
             _ = await _repository.SaveChangesAsync();
             return p.ProgramId;

@@ -32,11 +32,11 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             return new ListProgramResponseDTO()
             {
                 TotalCount = query.Count,
-                Programs = query.Select(x => new ListProgramResponseDataDTO()
+                Programs = query.Select(x => new ProgramPartsDataDTO()
                 {
                     ProgramId = x.ProgramId,
                     Category = (ProgramCategory)x.ProgramCategory,
-                    Title = new ProgramTitleDTO()
+                    Title = new TitleDTO()
                     {
                         Ja = x.Title_Ja,
                         En = x.Title_En,
@@ -47,7 +47,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
                     TrackId = x.TrackId,
-                    Description = new ProgramDescriptionDTO()
+                    Description = new DescriptionDTO()
                     {
                         Ja = x.Description_Ja,
                         En = x.Description_En,

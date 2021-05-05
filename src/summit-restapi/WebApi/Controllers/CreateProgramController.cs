@@ -28,7 +28,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new CreateProgramResponse()
             {
-                Data = new ProgramIdDTO()
+                Data = new ProgramKeyDataDTO()
                 {
                     ProgramId = newProgramId
                 }
@@ -39,12 +39,12 @@ namespace CfjSummit.WebApi.Controllers
     public class CreateProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public RegisterProgramRequestDTO Data { get; set; }
+        public ProgramPartsDataDTO Data { get; set; }
     }
     public class CreateProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public ProgramKeyDataDTO Data { get; set; }
     }
 
 }

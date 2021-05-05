@@ -12,18 +12,10 @@ namespace CfjSummit.Domain.Models.Entities
         {
 
         }
-        public Program(RegisterProgramRequestDTO dto)
+        public Program(ProgramPartsDataDTO dto)
         {
             ProgramId = Guid.NewGuid().ToString();
-            Title_Ja = dto.Title.Ja;
-            Title_En = dto.Title.En;
-            Title_Zh_Tw = dto.Title.ZhTw;
-            Title_Zh_Cn = dto.Title.ZhCn;
-            ProgramCategory = (int)dto.Category;
-            Date = dto.Date;
-            StartTime = dto.StartTime;
-            EndTime = dto.EndTime;
-            TrackId = dto.TrackId;
+            Edit(dto);
         }
 
         public string ProgramId { get; init; }
@@ -38,12 +30,17 @@ namespace CfjSummit.Domain.Models.Entities
         public string Description_Zh_Tw { private set; get; }
         public string Description_Zh_Cn { private set; get; }
         [Required]
-        public DateTime Date { private set; get; }
+        public string Date { private set; get; }
         public string StartTime { private set; get; }
         public string EndTime { private set; get; }
         public string TrackId { private set; get; }
 
-        public void Update(EditProgramRequestDTO dto)
+        public void Update(ProgramPartsDataDTO dto)
+        {
+            Edit(dto);
+        }
+
+        private void Edit(ProgramPartsDataDTO dto)
         {
             Title_Ja = dto.Title.Ja;
             Title_En = dto.Title.En;
@@ -58,8 +55,8 @@ namespace CfjSummit.Domain.Models.Entities
             Description_En = dto.Description.En;
             Description_Zh_Tw = dto.Description.ZhTw;
             Description_Zh_Cn = dto.Description.ZhCn;
-
         }
+
 
         private readonly List<ProgramOwner> _programOwners = new();
         public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;

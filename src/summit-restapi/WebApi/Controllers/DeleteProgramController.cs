@@ -34,7 +34,7 @@ namespace CfjSummit.WebApi.Controllers
     public class DeleteProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public ProgramKeyDataDTO Data { get; set; }
     }
     public class DeleteProgramResponse : AbstractResponseBody
     {

@@ -8,6 +8,6 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("totalCount")]
         public int TotalCount { get; set; }
         [JsonPropertyName("programs")]
-        public List<ListProgramResponseDataDTO> Programs { get; set; }
+        public List<ProgramPartsDataDTO> Programs { get; set; }
     }
 }

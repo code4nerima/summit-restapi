@@ -30,7 +30,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new UpdateProgramResponse()
             {
-                Data = new ProgramIdDTO()
+                Data = new ProgramKeyDataDTO()
                 {
                     ProgramId = programId
                 }
@@ -41,11 +41,11 @@ namespace CfjSummit.WebApi.Controllers
     public class UpdateProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public EditProgramRequestDTO Data { get; set; }
+        public ProgramPartsDataDTO Data { get; set; }
     }
     public class UpdateProgramResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public ProgramKeyDataDTO Data { get; set; }
     }
 }

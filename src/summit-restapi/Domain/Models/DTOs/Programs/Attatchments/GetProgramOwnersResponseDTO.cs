@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace CfjSummit.Domain.Models.DTOs.Programs
+namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 {
     public class GetProgramOwnersResponseDTO
     {

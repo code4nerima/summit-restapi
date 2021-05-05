@@ -1,21 +1,18 @@
 ﻿using CfjSummit.Domain.Models.Enums;
-using System;
 using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs
 {
-    public class ListProgramResponseDataDTO
+    public class ProgramPartsDataDTO : ProgramKeyDataDTO
     {
-        [JsonPropertyName("programId")]
-        public string ProgramId { get; set; }
-
         [JsonPropertyName("title")]
-        public ProgramTitleDTO Title { set; get; }
+        public TitleDTO Title { set; get; }
 
         [JsonPropertyName("category")]
         public ProgramCategory Category { set; get; }
+
         [JsonPropertyName("date")]
-        public DateTime Date { set; get; }
+        public string Date { set; get; }
 
         [JsonPropertyName("startTime")]
         public string StartTime { set; get; }
@@ -27,7 +24,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         public string TrackId { set; get; }
 
         [JsonPropertyName("description")]
-        public ProgramDescriptionDTO Description { set; get; }
+        public DescriptionDTO Description { set; get; }
 
     }
 }

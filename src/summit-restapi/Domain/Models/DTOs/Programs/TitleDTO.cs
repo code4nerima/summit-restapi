@@ -2,7 +2,7 @@
 
 namespace CfjSummit.Domain.Models.DTOs.Programs
 {
-    public class ProgramTitleDTO
+    public class TitleDTO
     {
         [JsonPropertyName("ja")]
         public string Ja { get; set; }

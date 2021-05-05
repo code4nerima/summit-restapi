@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace CfjSummit.Domain.Models.DTOs.Programs
+namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 {
-    public class UpdateProgramOwnersRequestDTO
+    public class UpdateProgramOwnersRequestDTO : ProgramKeyDataDTO
     {
-        [JsonPropertyName("programId")]
-        public string ProgramId { get; set; }
         [JsonPropertyName("owners")]
         public List<string> OwnerUids { get; set; }
     }

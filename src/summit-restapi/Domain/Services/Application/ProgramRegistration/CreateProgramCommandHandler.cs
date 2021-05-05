@@ -17,7 +17,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<string> Handle(CreateProgramCommand request, CancellationToken cancellationToken)
         {
-            var p = new Program(request.RegisterProgramRequestDTO);
+            var p = new Program(request.ProgramPartsDataDTO);
             _repository.Add(p);
             _ = await _repository.SaveChangesAsync();
             return p.ProgramId;

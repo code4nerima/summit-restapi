@@ -37,7 +37,7 @@ namespace CfjSummit.WebApi.Controllers
     public class GetProgramRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramIdDTO Data { get; set; }
+        public ProgramKeyDataDTO Data { get; set; }
     }
     public class GetProgramResponse : AbstractResponseBody
     {

@@ -5,10 +5,10 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 {
     public class CreateProgramCommand : IRequest<string>
     {
-        public RegisterProgramRequestDTO RegisterProgramRequestDTO { get; init; }
-        public CreateProgramCommand(RegisterProgramRequestDTO dto)
+        public ProgramPartsDataDTO ProgramPartsDataDTO { get; init; }
+        public CreateProgramCommand(ProgramPartsDataDTO dto)
         {
-            RegisterProgramRequestDTO = dto;
+            ProgramPartsDataDTO = dto;
         }
     }
 }

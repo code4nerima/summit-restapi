@@ -1,4 +1,5 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
+using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Models.DTOs.UserProfiles;
 using CfjSummit.Domain.Models.Enums;
 using CfjSummit.Domain.Repositories;
@@ -30,7 +31,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
             var dto = new ProgramDTO()
             {
-                Title = new ProgramTitleDTO()
+                ProgramId = p.ProgramId,
+                Title = new TitleDTO()
                 {
                     Ja = p.Title_Ja,
                     En = p.Title_En,
@@ -54,7 +56,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         ZhCn = x.UserProfile.Name_Zh_Cn
                     }
                 }).ToList(),
-                Description = new ProgramDescriptionDTO()
+                Description = new DescriptionDTO()
                 {
                     Ja = p.Description_Ja,
                     En = p.Description_En,
