@@ -42,6 +42,17 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         En = x.Title_En,
                         ZhTw = x.Title_Zh_Tw,
                         ZhCn = x.Title_Zh_Cn
+                    },
+                    Date = x.Date,
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                    TrackId = x.TrackId,
+                    Description = new ProgramDescriptionDTO()
+                    {
+                        Ja = x.Description_Ja,
+                        En = x.Description_En,
+                        ZhTw = x.Description_Zh_Tw,
+                        ZhCn = x.Description_Zh_Cn
                     }
                 }).ToList()
             };

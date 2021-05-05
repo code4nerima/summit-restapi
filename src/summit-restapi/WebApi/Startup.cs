@@ -34,6 +34,7 @@ namespace WebApi
                 x => x.MigrationsAssembly(Configuration.GetValue<string>("MigrationAssembly"))).EnableSensitiveDataLogging());
 
             services.AddMediatR(typeof(CfjSummitDomain).GetTypeInfo().Assembly);
+            services.AddScoped(typeof(IQueryableRepository<>), typeof(QueryableRepository<>));
             services.AddScoped<IUserProfileRepository, UserProfileRepository>();
             services.AddScoped<IProgramRepository, ProgramRepository>();
             services.AddScoped<IRequestLogRepository, RequestLogRepository>();

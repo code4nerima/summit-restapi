@@ -63,10 +63,14 @@ namespace CfjSummit.Domain.Models.Entities
 
         private readonly List<ProgramOwner> _programOwners = new();
         public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
-        public void UpdateProgramOwner(IEnumerable<string> uidList)
+
+        public void RemoveAllProgramOwner()
         {
-            _programOwners.Clear();
-            _programOwners.AddRange(uidList.Select(uid => new ProgramOwner(uid)));
+            _programOwners.ToList().ForEach(x => _programOwners.Remove(x));
+        }
+        public void AddRangeProgramOwners(IEnumerable<UserProfile> userProfiles)
+        {
+            _programOwners.AddRange(userProfiles.Select(u => new ProgramOwner(u)));
         }
     }
 }
