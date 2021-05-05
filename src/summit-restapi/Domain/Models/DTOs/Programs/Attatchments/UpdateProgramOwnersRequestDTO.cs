@@ -7,5 +7,6 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
     {
         [JsonPropertyName("owners")]
         public List<string> OwnerUids { get; set; }
+
     }
 }
