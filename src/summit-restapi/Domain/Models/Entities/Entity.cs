@@ -19,5 +19,9 @@ namespace CfjSummit.Domain.Models.Entities
         {
             ModifiedAt = modifiedAt;
         }
+        protected string GetNewGuid()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace CfjSummit.Domain.Models.Entities
         }
         public Program(ProgramPartsDataDTO dto)
         {
-            ProgramGuid = Guid.NewGuid().ToString();
+            ProgramGuid = GetNewGuid();
             Edit(dto);
         }
 

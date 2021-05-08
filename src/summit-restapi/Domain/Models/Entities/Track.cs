@@ -1,5 +1,4 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Tracks;
-using System;
 using System.Collections.Generic;
 
 namespace CfjSummit.Domain.Models.Entities
@@ -13,7 +12,7 @@ namespace CfjSummit.Domain.Models.Entities
 
         public Track(TrackDTO dto)
         {
-            TrackGuid = Guid.NewGuid().ToString();
+            TrackGuid = GetNewGuid();
             Edit(dto);
         }
         public virtual string TrackGuid { set; get; }
