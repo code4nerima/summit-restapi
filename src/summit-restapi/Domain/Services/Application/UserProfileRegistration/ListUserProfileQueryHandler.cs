@@ -1,4 +1,5 @@
-﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
+﻿using CfjSummit.Domain.Models.DTOs;
+using CfjSummit.Domain.Models.DTOs.UserProfiles;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
                 {
                     Uid = x.Uid,
                     Role = x.Role,
-                    UserName = new UserNameDTO()
+                    UserName = new MultilingualValue()
                     {
                         Ja = x.Name_Ja,
                         Ja_Kana = x.Name_Ja_Kana,

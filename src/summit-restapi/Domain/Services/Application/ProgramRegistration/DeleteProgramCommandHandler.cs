@@ -17,7 +17,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<int> Handle(DeleteProgramCommand request, CancellationToken cancellationToken)
         {
-            var p = _repository.GetAll().SingleOrDefault(x => x.ProgramId == request.ProgramId);
+            var p = _repository.GetAll().SingleOrDefault(x => x.ProgramGuid == request.ProgramId);
             if (p == null) { return 0; }
             _repository.Remove(p);
             return await _repository.SaveChangesAsync();

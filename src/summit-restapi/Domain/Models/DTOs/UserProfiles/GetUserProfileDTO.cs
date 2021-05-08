@@ -8,7 +8,7 @@ namespace CfjSummit.Domain.Models.DTOs.UserProfiles
         public string Uid { get; set; }
 
         [JsonPropertyName("name")]
-        public UserNameDTO UserName { get; set; }
+        public MultilingualValue UserName { get; set; }
 
         [JsonPropertyName("role")]
         public int Role { get; set; }

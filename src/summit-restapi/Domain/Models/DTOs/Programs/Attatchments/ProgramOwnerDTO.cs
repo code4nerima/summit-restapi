@@ -1,5 +1,4 @@
-﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 {
@@ -9,6 +8,6 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
         public string Uid { get; set; }
 
         [JsonPropertyName("name")]
-        public UserNameDTO UserName { get; set; }
+        public MultilingualValue UserName { get; set; }
     }
 }

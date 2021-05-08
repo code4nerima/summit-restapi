@@ -24,7 +24,7 @@ namespace CfjSummit.WebApi.Controllers
         {
             await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new DeleteProgramCommand(request.Data.ProgramId);
+            var command = new DeleteProgramCommand(request.Data.ProgramGuid);
             _ = await _mediator.Send(command);
 
             return new DeleteProgramResponse();

@@ -19,8 +19,9 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         }
         public async Task<int> Handle(UpdateProgramOwnersCommand request, CancellationToken cancellationToken)
         {
-            var program = await _repository.GetProgramWithOwnersAsync(request.UpdateProgramOwnersRequestDTO.ProgramId);
-            program.RemoveAllProgramOwner();
+            var program = await _repository.GetProgramWithOwnersAsync(request.UpdateProgramOwnersRequestDTO.ProgramGuid);
+            program.ProgramOwners.Select(x => x.UserProfile).ToList().ForEach(x => x.RemoveProgramOwners());
+            program.ClearProgramOwner();
             var userProfiles = _userProfileRepository.GetAll()
                 .Where(x => request.UpdateProgramOwnersRequestDTO.OwnerUids.Contains(x.Uid))
                 .ToList();

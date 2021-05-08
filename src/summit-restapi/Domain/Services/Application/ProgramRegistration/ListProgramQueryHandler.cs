@@ -1,4 +1,5 @@
-﻿using CfjSummit.Domain.Models.DTOs.Programs;
+﻿using CfjSummit.Domain.Models.DTOs;
+using CfjSummit.Domain.Models.DTOs.Programs;
 using CfjSummit.Domain.Models.Enums;
 using CfjSummit.Domain.Repositories;
 using MediatR;
@@ -23,6 +24,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             var takeCount = request.ListProgramRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
+                .Include(x => x.Track)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
@@ -34,9 +36,9 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 TotalCount = query.Count,
                 Programs = query.Select(x => new ProgramPartsDataDTO()
                 {
-                    ProgramId = x.ProgramId,
+                    ProgramGuid = x.ProgramGuid,
                     Category = (ProgramCategory)x.ProgramCategory,
-                    Title = new TitleDTO()
+                    Title = new MultilingualValue()
                     {
                         Ja = x.Title_Ja,
                         En = x.Title_En,
@@ -46,14 +48,23 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     Date = x.Date,
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
-                    TrackId = x.TrackId,
-                    Description = new DescriptionDTO()
+                    TrackGuid = x.Track?.TrackGuid ?? "",
+                    TrackName = new MultilingualValue()
+                    {
+                        Ja = x.Track?.Name_Ja ?? "",
+                        En = x.Track?.Name_En ?? "",
+                        ZhTw = x.Track?.Name_Zh_Tw ?? "",
+                        ZhCn = x.Track?.Name_Zh_Cn ?? ""
+                    },
+
+                    Description = new MultilingualValue()
                     {
                         Ja = x.Description_Ja,
                         En = x.Description_En,
                         ZhTw = x.Description_Zh_Tw,
                         ZhCn = x.Description_Zh_Cn
-                    }
+                    },
+                    Email = x.Email
                 }).ToList()
             };
         }

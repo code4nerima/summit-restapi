@@ -1,6 +1,6 @@
-﻿using CfjSummit.Domain.Models.DTOs.Programs;
+﻿using CfjSummit.Domain.Models.DTOs;
+using CfjSummit.Domain.Models.DTOs.Programs;
 using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
-using CfjSummit.Domain.Models.DTOs.UserProfiles;
 using CfjSummit.Domain.Models.Enums;
 using CfjSummit.Domain.Repositories;
 using MediatR;
@@ -26,13 +26,14 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .GetAll()
                 .Include(x => x.ProgramOwners)
                 .ThenInclude(x => x.UserProfile)
-                .SingleOrDefaultAsync(x => x.ProgramId == request.ProgramId, cancellationToken: cancellationToken);
+                .Include(x => x.Track)
+                .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramId, cancellationToken: cancellationToken);
             if (p == null) { return new ProgramDTO(); }
 
             var dto = new ProgramDTO()
             {
-                ProgramId = p.ProgramId,
-                Title = new TitleDTO()
+                ProgramGuid = p.ProgramGuid,
+                Title = new MultilingualValue()
                 {
                     Ja = p.Title_Ja,
                     En = p.Title_En,
@@ -43,11 +44,18 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 Date = p.Date,
                 StartTime = p.StartTime,
                 EndTime = p.EndTime,
-                TrackId = p.TrackId,
+                TrackGuid = p.Track?.TrackGuid ?? "",
+                TrackName = new MultilingualValue()
+                {
+                    Ja = p.Track?.Name_Ja ?? "",
+                    En = p.Track?.Name_En ?? "",
+                    ZhTw = p.Track?.Name_Zh_Tw ?? "",
+                    ZhCn = p.Track?.Name_Zh_Cn ?? ""
+                },
                 ProgramOwners = p.ProgramOwners.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,
-                    UserName = new UserNameDTO()
+                    UserName = new MultilingualValue()
                     {
                         Ja = x.UserProfile.Name_Ja,
                         Ja_Kana = x.UserProfile.Name_Ja_Kana,
@@ -56,14 +64,14 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         ZhCn = x.UserProfile.Name_Zh_Cn
                     }
                 }).ToList(),
-                Description = new DescriptionDTO()
+                Description = new MultilingualValue()
                 {
                     Ja = p.Description_Ja,
                     En = p.Description_En,
                     ZhTw = p.Description_Zh_Tw,
                     ZhCn = p.Description_Zh_Cn
                 },
-
+                Email = p.Email
             };
             //TODO
             //dto.AddProgramMember

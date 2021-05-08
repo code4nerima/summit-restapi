@@ -32,7 +32,7 @@ namespace CfjSummit.WebApi.Controllers
             {
                 Data = new ProgramKeyDataDTO()
                 {
-                    ProgramId = programId
+                    ProgramGuid = programId
                 }
             };
         }

@@ -1,4 +1,5 @@
 ﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -40,6 +41,13 @@ namespace CfjSummit.Domain.Models.Entities
             Name_Zh_Tw = dto.UserName.ZhTw ?? Name_Zh_Tw;
             Name_Zh_Cn = dto.UserName.ZhCn ?? Name_Zh_Cn;
             Role = (int)dto.UserRole;
+        }
+
+        private readonly List<ProgramOwner> _programOwners = new();
+        public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
+        public void RemoveProgramOwners()
+        {
+            _programOwners.Clear();
         }
     }
 }

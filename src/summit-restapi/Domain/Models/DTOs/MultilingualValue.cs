@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CfjSummit.Domain.Models.DTOs.UserProfiles
+namespace CfjSummit.Domain.Models.DTOs
 {
-    public class UserNameDTO
+    public class MultilingualValue
     {
         [JsonPropertyName("ja")]
         public string Ja { get; set; }

@@ -6,7 +6,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
     public class ProgramPartsDataDTO : ProgramKeyDataDTO
     {
         [JsonPropertyName("title")]
-        public TitleDTO Title { set; get; }
+        public MultilingualValue Title { set; get; }
 
         [JsonPropertyName("category")]
         public ProgramCategory Category { set; get; }
@@ -21,10 +21,16 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         public string EndTime { set; get; }
 
         [JsonPropertyName("trackId")]
-        public string TrackId { set; get; }
+        public string TrackGuid { set; get; }
+
+        [JsonPropertyName("trackName")]
+        public MultilingualValue TrackName { set; get; }
 
         [JsonPropertyName("description")]
-        public DescriptionDTO Description { set; get; }
+        public MultilingualValue Description { set; get; }
+
+        [JsonPropertyName("email")]
+        public string Email { set; get; }
 
     }
 }
