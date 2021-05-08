@@ -3,12 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.UserProfiles
 {
-    public class ListUserProfileRequestDTO
+    public class ListUserProfileRequestDTO : ListRequestDTO
     {
-        [JsonPropertyName("start")]
-        public int Start { get; set; }
-        [JsonPropertyName("limit")]
-        public int Limit { get; set; }
         [JsonPropertyName("role")]
         public UserRole UserRole { get; set; }
 
