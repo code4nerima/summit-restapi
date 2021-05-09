@@ -1,4 +1,5 @@
-﻿using CfjSummit.Domain.Models.DTOs.Tracks;
+﻿using CfjSummit.Domain.Models.DTOs;
+using CfjSummit.Domain.Models.DTOs.Tracks;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,18 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
             return new ListTrackResponseDTO()
             {
                 TotalCount = query.Count,
-                Tracks = query.Select(x => new TrackDTO(x)).ToList()
+                Tracks = query.Select(x => new TrackDTO()
+                {
+                    TrackGuid = x.TrackGuid,
+                    Name = new MultilingualValue()
+                    {
+                        Ja = x.Name_Ja,
+                        En = x.Name_En,
+                        ZhTw = x.Name_Zh_Tw,
+                        ZhCn = x.Name_Zh_Cn
+                    }
+                }
+                ).ToList()
             };
         }
     }
