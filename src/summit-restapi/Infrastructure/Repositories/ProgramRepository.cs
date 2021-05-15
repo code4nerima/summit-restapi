@@ -20,5 +20,13 @@ namespace CfjSummit.Infrastructure.Repositories
                 .ThenInclude(x => x.UserProfile)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == programId);
         }
+        public async ValueTask<Program> GetProgramWithMembersAsync(string programId)
+        {
+            return await _table
+                .Include(x => x.ProgramMembers)
+                .ThenInclude(x => x.UserProfile)
+                .SingleOrDefaultAsync(x => x.ProgramGuid == programId);
+        }
+
     }
 }

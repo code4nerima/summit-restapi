@@ -18,7 +18,7 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
 
         public async Task<string> Handle(UpdateTrackCommand request, CancellationToken cancellationToken)
         {
-            var track = await _repository.GetAll().SingleOrDefaultAsync(x => x.TrackGuid == request.TrackDTO.TrackGuid);
+            var track = await _repository.GetAll().SingleOrDefaultAsync(x => x.TrackGuid == request.TrackDTO.TrackGuid, cancellationToken: cancellationToken);
             if (track == null) { throw new Exception(); }
             track.Update(request.TrackDTO);
             _repository.Update(track);

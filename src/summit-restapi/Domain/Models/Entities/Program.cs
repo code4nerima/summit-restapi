@@ -13,7 +13,7 @@ namespace CfjSummit.Domain.Models.Entities
         }
         public Program(ProgramPartsDataDTO dto)
         {
-            ProgramGuid = GetNewGuid();
+            ProgramGuid = NewGuid;
             Edit(dto);
         }
 
@@ -59,9 +59,16 @@ namespace CfjSummit.Domain.Models.Entities
 
         private readonly List<ProgramOwner> _programOwners = new();
         public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
-
         public void ClearProgramOwner() => _programOwners.Clear();
         public void AddRangeProgramOwners(IEnumerable<UserProfile> userProfiles) => _programOwners.AddRange(userProfiles.Select(u => new ProgramOwner(u)));
+
+
+
+        private readonly List<ProgramMember> _programMembers = new();
+        public IReadOnlyCollection<ProgramMember> ProgramMembers => _programMembers;
+        public void ClearProgramMember() => _programMembers.Clear();
+        public void AddRangeProgramMembers(IEnumerable<UserProfile> userProfiles) => _programMembers.AddRange(userProfiles.Select(u => new ProgramMember(u)));
+
         public void SetTrackId(long trackId) => TrackId = trackId;
 
         public long? TrackId { private set; get; }

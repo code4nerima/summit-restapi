@@ -26,6 +26,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .GetAll()
                 .Include(x => x.ProgramOwners)
                 .ThenInclude(x => x.UserProfile)
+                .Include(x => x.ProgramMembers)
+                .ThenInclude(x => x.UserProfile)
                 .Include(x => x.Track)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramId, cancellationToken: cancellationToken);
             if (p == null) { return new ProgramDTO(); }
@@ -53,6 +55,18 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhCn = p.Track?.Name_Zh_Cn ?? ""
                 },
                 ProgramOwners = p.ProgramOwners.Select(x => new ProgramOwnerDTO()
+                {
+                    Uid = x.UserProfile.Uid,
+                    UserName = new MultilingualValue()
+                    {
+                        Ja = x.UserProfile.Name_Ja,
+                        Ja_Kana = x.UserProfile.Name_Ja_Kana,
+                        En = x.UserProfile.Name_En,
+                        ZhTw = x.UserProfile.Name_Zh_Tw,
+                        ZhCn = x.UserProfile.Name_Zh_Cn
+                    }
+                }).ToList(),
+                ProgramMembers = p.ProgramMembers.Select(x => new ProgramMemberDTO()
                 {
                     Uid = x.UserProfile.Uid,
                     UserName = new MultilingualValue()
