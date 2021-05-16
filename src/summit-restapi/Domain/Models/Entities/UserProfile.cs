@@ -45,9 +45,11 @@ namespace CfjSummit.Domain.Models.Entities
 
         private readonly List<ProgramOwner> _programOwners = new();
         public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
-        public void RemoveProgramOwners()
-        {
-            _programOwners.Clear();
-        }
+        public void RemoveProgramOwners() => _programOwners.Clear();
+
+        private readonly List<ProgramMember> _programMembers = new();
+        public IReadOnlyCollection<ProgramMember> ProgramMembers => _programMembers;
+        public void RemoveProgramMembers() => _programMembers.Clear();
+
     }
 }
