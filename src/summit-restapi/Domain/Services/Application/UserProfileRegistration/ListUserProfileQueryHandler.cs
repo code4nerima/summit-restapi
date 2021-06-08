@@ -23,7 +23,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
             var takeCount = request.ListUserProfileRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
-                .Where(x => x.Role <= (int)request.ListUserProfileRequestDTO.UserRole)
+                .Where(x => request.ListUserProfileRequestDTO.Roles.Contains(x.Role))
                 .OrderBy(x => x.Name_Ja_Kana)
                 .Skip(request.ListUserProfileRequestDTO.Start)
                 .Take(takeCount)
