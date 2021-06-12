@@ -25,6 +25,10 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
                 .Include(x => x.Track)
+                .Where(x =>
+                    (string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) || x.ProgramOwners.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid)) ||
+                    (string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) || x.ProgramMembers.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid))
+                )
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
