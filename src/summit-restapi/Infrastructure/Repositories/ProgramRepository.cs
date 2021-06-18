@@ -13,18 +13,11 @@ namespace CfjSummit.Infrastructure.Repositories
 
         }
 
-        public async ValueTask<Program> GetProgramWithOwnersAsync(string programId)
+        public async ValueTask<Program> GetProgramWithUserProfilesAsync(string programId)
         {
             return await _table
-                .Include(x => x.ProgramOwners)
-                .ThenInclude(x => x.UserProfile)
-                .SingleOrDefaultAsync(x => x.ProgramGuid == programId);
-        }
-        public async ValueTask<Program> GetProgramWithMembersAsync(string programId)
-        {
-            return await _table
-                .Include(x => x.ProgramMembers)
-                .ThenInclude(x => x.UserProfile)
+                .Include(x => x.ProgramUserProfiles)
+                //.ThenInclude(x => x.UserProfile)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == programId);
         }
 

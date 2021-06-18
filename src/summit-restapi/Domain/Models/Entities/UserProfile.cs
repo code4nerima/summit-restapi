@@ -43,13 +43,8 @@ namespace CfjSummit.Domain.Models.Entities
             Role = (int)dto.UserRole;
         }
 
-        private readonly List<ProgramOwner> _programOwners = new();
-        public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
-        public void RemoveProgramOwners() => _programOwners.Clear();
-
-        private readonly List<ProgramMember> _programMembers = new();
-        public IReadOnlyCollection<ProgramMember> ProgramMembers => _programMembers;
-        public void RemoveProgramMembers() => _programMembers.Clear();
+        private readonly List<ProgramUserProfile> _programUserProfiles = new();
+        public IReadOnlyCollection<ProgramUserProfile> ProgramUserProfiles => _programUserProfiles;
 
     }
 }

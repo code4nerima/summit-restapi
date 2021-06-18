@@ -32,32 +32,32 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid)
                     )
 
-                    ||
+                ||
 
-                    //どっちも入ってる
+                //どっちも入ってる
+                (
+                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
                     (
-                        !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
-                        (
-                            x.ProgramOwners.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid) ||
-                            x.ProgramMembers.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
-                        )
+                        x.ProgramOwnerUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid) ||
+                        x.ProgramMemberUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
                     )
+                )
 
-                    ||
+                ||
 
-                    //Ownerのみ
-                    (
-                        !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) &&
-                        x.ProgramOwners.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid)
-                    )
+                //Ownerのみ
+                (
+                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) &&
+                    x.ProgramOwnerUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid)
+                )
 
-                    ||
+                ||
 
-                    //Memberのみ
-                    (
-                        !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
-                        x.ProgramMembers.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
-                    )
+                //Memberのみ
+                (
+                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
+                    x.ProgramMemberUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
+                )
                 )
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)

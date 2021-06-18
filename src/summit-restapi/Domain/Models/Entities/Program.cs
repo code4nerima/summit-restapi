@@ -1,12 +1,19 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace CfjSummit.Domain.Models.Entities
 {
     public class Program : Entity
     {
+        private enum ProgramRoleEnum
+        {
+            Owner = 1,
+            Member = 2,
+        }
+
         private Program()
         {
 
@@ -31,8 +38,30 @@ namespace CfjSummit.Domain.Models.Entities
         [Required]
         public string Date { private set; get; }
         public string StartTime { private set; get; }
+
+        public void ClearProgramOwner()
+        {
+            _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Owner);
+        }
+
+        public void ClearProgramMember()
+        {
+            _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Member);
+        }
         public string EndTime { private set; get; }
         public string Email { private set; get; }
+
+        public void AddRangeProgramOwners(IReadOnlyList<long> userProfileIds)
+        {
+            var items = userProfileIds.Select(userProfileId => new ProgramUserProfile((int)ProgramRoleEnum.Owner, Id, userProfileId));
+            _programUserProfiles.AddRange(items);
+        }
+
+        public void AddRangeProgramMembers(IReadOnlyList<long> userProfileIds)
+        {
+            var items = userProfileIds.Select(userProfileId => new ProgramUserProfile((int)ProgramRoleEnum.Member, Id, userProfileId));
+            _programUserProfiles.AddRange(items);
+        }
 
         public void Update(ProgramPartsDataDTO dto)
         {
@@ -57,17 +86,14 @@ namespace CfjSummit.Domain.Models.Entities
         }
 
 
-        private readonly List<ProgramOwner> _programOwners = new();
-        public IReadOnlyCollection<ProgramOwner> ProgramOwners => _programOwners;
-        public void ClearProgramOwner() => _programOwners.Clear();
-        public void AddRangeProgramOwners(IEnumerable<UserProfile> userProfiles) => _programOwners.AddRange(userProfiles.Select(u => new ProgramOwner(u)));
 
+        private readonly List<ProgramUserProfile> _programUserProfiles = new();
+        public IReadOnlyCollection<ProgramUserProfile> ProgramUserProfiles => _programUserProfiles;
 
-
-        private readonly List<ProgramMember> _programMembers = new();
-        public IReadOnlyCollection<ProgramMember> ProgramMembers => _programMembers;
-        public void ClearProgramMember() => _programMembers.Clear();
-        public void AddRangeProgramMembers(IEnumerable<UserProfile> userProfiles) => _programMembers.AddRange(userProfiles.Select(u => new ProgramMember(u)));
+        [NotMapped]
+        public IReadOnlyCollection<ProgramUserProfile> ProgramOwnerUserProfiles => _programUserProfiles.Where(x => x.ProgramRole == (int)ProgramRoleEnum.Owner).ToList();
+        [NotMapped]
+        public IReadOnlyCollection<ProgramUserProfile> ProgramMemberUserProfiles => _programUserProfiles.Where(x => x.ProgramRole == (int)ProgramRoleEnum.Member).ToList();
 
         public void SetTrackId(long trackId) => TrackId = trackId;
 

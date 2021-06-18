@@ -19,8 +19,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<GetProgramOwnersResponseDTO> Handle(GetProgramOwnersQuery request, CancellationToken cancellationToken)
         {
-            var p = await _repository.GetProgramWithOwnersAsync(request.ProgramIdDTO.ProgramGuid);
-            var items = p.ProgramOwners.Select(x => new ProgramOwnerDTO()
+            var p = await _repository.GetProgramWithUserProfilesAsync(request.ProgramIdDTO.ProgramGuid);
+            var items = p.ProgramMemberUserProfiles.Select(x => new ProgramOwnerDTO()
             {
                 Uid = x.UserProfile.Uid,
                 UserName = new MultilingualValue()
@@ -37,7 +37,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 TotalCount = items.Count,
                 Owners = items
             };
-
         }
     }
 }
