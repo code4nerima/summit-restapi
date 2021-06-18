@@ -25,7 +25,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             var takeCount = request.ListProgramRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
-                //.Include(x => x.ProgramUserProfiles)
                 .Include(x => x.Track)
                 .Where(x =>
 
