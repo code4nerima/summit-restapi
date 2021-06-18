@@ -24,9 +24,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         {
             var p = await _repository
                 .GetAll()
-                .Include(x => x.ProgramOwners)
-                .ThenInclude(x => x.UserProfile)
-                .Include(x => x.ProgramMembers)
+                .Include(x => x.ProgramUserProfiles)
                 .ThenInclude(x => x.UserProfile)
                 .Include(x => x.Track)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramId, cancellationToken: cancellationToken);
@@ -54,7 +52,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhTw = p.Track?.Name_Zh_Tw ?? "",
                     ZhCn = p.Track?.Name_Zh_Cn ?? ""
                 },
-                ProgramOwners = p.ProgramOwners.Select(x => new ProgramOwnerDTO()
+                ProgramOwners = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,
                     UserName = new MultilingualValue()
@@ -66,7 +64,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         ZhCn = x.UserProfile.Name_Zh_Cn
                     }
                 }).ToList(),
-                ProgramMembers = p.ProgramMembers.Select(x => new ProgramMemberDTO()
+                ProgramMembers = p.ProgramMemberUserProfiles.Select(x => new ProgramMemberDTO()
                 {
                     Uid = x.UserProfile.Uid,
                     UserName = new MultilingualValue()
@@ -87,9 +85,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 },
                 Email = p.Email
             };
-            //TODO
-            //dto.AddProgramMember
-            //dto.AddProgramOwner
             return dto;
         }
     }

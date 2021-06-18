@@ -19,8 +19,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<GetProgramMembersResponseDTO> Handle(GetProgramMembersQuery request, CancellationToken cancellationToken)
         {
-            var p = await _repository.GetProgramWithMembersAsync(request.ProgramKeyDataDTO.ProgramGuid);
-            var items = p.ProgramMembers.Select(x => new ProgramMemberDTO()
+            var p = await _repository.GetProgramWithUserProfilesAsync(request.ProgramKeyDataDTO.ProgramGuid);
+            var items = p.ProgramMemberUserProfiles.Select(x => new ProgramMemberDTO()
             {
                 Uid = x.UserProfile.Uid,
                 UserName = new MultilingualValue()
@@ -37,7 +37,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 TotalCount = items.Count,
                 Members = items
             };
-
         }
     }
 }

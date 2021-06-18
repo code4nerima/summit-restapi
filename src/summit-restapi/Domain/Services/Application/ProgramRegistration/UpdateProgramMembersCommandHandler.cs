@@ -23,13 +23,14 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
         public async Task<int> Handle(UpdateProgramMembersCommand request, CancellationToken cancellationToken)
         {
-            var program = await _repository.GetProgramWithMembersAsync(request.UpdateProgramMembersRequestDTO.ProgramGuid);
-            program.ProgramMembers.Select(x => x.UserProfile).ToList().ForEach(x => x.RemoveProgramMembers());
+            var program = await _repository.GetProgramWithUserProfilesAsync(request.UpdateProgramMembersRequestDTO.ProgramGuid);
+
             program.ClearProgramMember();
-            var userProfiles = _userProfileRepository.GetAll()
+            var userProfileIds = _userProfileRepository.GetAll()
                 .Where(x => request.UpdateProgramMembersRequestDTO.MemberUids.Contains(x.Uid))
+                .Select(x => x.Id)
                 .ToList();
-            program.AddRangeProgramMembers(userProfiles);
+            program.AddRangeProgramMembers(userProfileIds);
             _repository.Update(program);
             return await _repository.SaveChangesAsync();
 
