@@ -8,7 +8,7 @@ namespace CfjSummit.Domain.Models.Entities
 {
     public class Program : Entity
     {
-        private enum ProgramRoleEnum
+        public enum ProgramRoleEnum
         {
             Owner = 1,
             Member = 2,

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static CfjSummit.Domain.Models.Entities.Program;
 
 namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 {
@@ -24,13 +25,14 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             var takeCount = request.ListProgramRequestDTO.Limit;
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
+                //.Include(x => x.ProgramUserProfiles)
                 .Include(x => x.Track)
                 .Where(x =>
 
-                    //どっちも入ってない
-                    (
-                        string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid)
-                    )
+                //どっちも入ってない
+                (
+                    string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid)
+                )
 
                 ||
 
@@ -38,8 +40,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 (
                     !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
                     (
-                        x.ProgramOwnerUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid) ||
-                        x.ProgramMemberUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
+                        x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid || x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
                     )
                 )
 
@@ -48,7 +49,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 //Ownerのみ
                 (
                     !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) &&
-                    x.ProgramOwnerUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid)
+                    x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid && x.ProgramRole == (int)ProgramRoleEnum.Owner)
                 )
 
                 ||
@@ -56,7 +57,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 //Memberのみ
                 (
                     !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
-                    x.ProgramMemberUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
+                    x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid && x.ProgramRole == (int)ProgramRoleEnum.Member)
                 )
                 )
                 .OrderBy(x => x.Date)
