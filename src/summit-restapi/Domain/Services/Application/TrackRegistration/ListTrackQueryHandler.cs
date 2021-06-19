@@ -41,7 +41,14 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
                         En = x.Name_En,
                         ZhTw = x.Name_Zh_Tw,
                         ZhCn = x.Name_Zh_Cn
-                    }
+                    },
+                    BroadcastingURL = x.BroadcastingURL,
+                    MeetingId = x.MeetingId,
+                    MeetingPasscode = x.MeetingPasscode,
+                    MeetingUrl = x.MeetingUrl,
+                    Station = x.Station,
+                    StreamKey = x.StreamKey,
+                    StreamUrl = x.StreamUrl
                 }
                 ).ToList()
             };

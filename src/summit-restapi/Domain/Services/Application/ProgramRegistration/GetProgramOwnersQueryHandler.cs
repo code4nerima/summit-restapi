@@ -20,7 +20,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         public async Task<GetProgramOwnersResponseDTO> Handle(GetProgramOwnersQuery request, CancellationToken cancellationToken)
         {
             var p = await _repository.GetProgramWithUserProfilesAsync(request.ProgramIdDTO.ProgramGuid);
-            var items = p.ProgramMemberUserProfiles.Select(x => new ProgramOwnerDTO()
+            var items = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
             {
                 Uid = x.UserProfile.Uid,
                 UserName = new MultilingualValue()
