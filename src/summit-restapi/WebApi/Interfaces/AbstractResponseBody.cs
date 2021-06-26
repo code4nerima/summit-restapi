@@ -6,7 +6,7 @@ namespace CfjSummit.WebApi.Interfaces
     public abstract class AbstractResponseBody
     {
         [JsonPropertyName("result")]
-        public string Result { get; } = "1";
+        public string Result { get; set; } = "1";
 
         [JsonPropertyName("timestamp")]
         public DateTime TimeStamp { get; } = DateTime.UtcNow;
