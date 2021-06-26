@@ -1,6 +1,5 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
-using CfjSummit.Domain.Models.Enums;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +70,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 Programs = query.Select(x => new ProgramPartsDataDTO()
                 {
                     ProgramGuid = x.ProgramGuid,
-                    Category = (ProgramCategory)x.ProgramCategory,
+                    Category = x.ProgramCategory,
                     Title = new MultilingualValue()
                     {
                         Ja = x.Title_Ja,

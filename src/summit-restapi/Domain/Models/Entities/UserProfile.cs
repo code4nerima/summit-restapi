@@ -19,7 +19,7 @@ namespace CfjSummit.Domain.Models.Entities
             Name_En = dto.UserName?.En;
             Name_Zh_Tw = dto.UserName?.ZhTw;
             Name_Zh_Cn = dto.UserName?.ZhCn;
-            Role = (int)dto.UserRole;
+            Role = dto.Role;
         }
 
         [Required]
@@ -40,11 +40,13 @@ namespace CfjSummit.Domain.Models.Entities
             Name_En = dto.UserName.En ?? Name_En;
             Name_Zh_Tw = dto.UserName.ZhTw ?? Name_Zh_Tw;
             Name_Zh_Cn = dto.UserName.ZhCn ?? Name_Zh_Cn;
-            Role = (int)dto.UserRole;
+            Role = dto.Role;
+            PhotoURL = dto.PhotoURL;
         }
 
         private readonly List<ProgramUserProfile> _programUserProfiles = new();
         public IReadOnlyCollection<ProgramUserProfile> ProgramUserProfiles => _programUserProfiles;
 
+        public virtual string PhotoURL { get; private set; }
     }
 }

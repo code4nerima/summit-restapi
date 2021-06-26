@@ -32,7 +32,7 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
             return new ListUserProfileResponseDTO()
             {
                 TotalCount = query.Count,
-                UserProfiles = query.Select(x => new GetUserProfileDTO()
+                UserProfiles = query.Select(x => new UserProfileDTO()
                 {
                     Uid = x.Uid,
                     Role = x.Role,
@@ -43,7 +43,8 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
                         En = x.Name_En,
                         ZhTw = x.Name_Zh_Tw,
                         ZhCn = x.Name_Zh_Cn
-                    }
+                    },
+                    PhotoURL = x.PhotoURL
                 })
                 .ToList()
             };

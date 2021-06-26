@@ -1,7 +1,6 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
 using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
-using CfjSummit.Domain.Models.Enums;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +39,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhTw = p.Title_Zh_Tw,
                     ZhCn = p.Title_Zh_Cn
                 },
-                Category = (ProgramCategory)p.ProgramCategory,
+                Category = p.ProgramCategory,
                 Date = p.Date,
                 StartTime = p.StartTime,
                 EndTime = p.EndTime,

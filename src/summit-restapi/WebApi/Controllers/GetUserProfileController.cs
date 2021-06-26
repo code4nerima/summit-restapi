@@ -41,7 +41,7 @@ namespace CfjSummit.WebApi.Controllers
     public class GetUserProfileResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public GetUserProfileDTO Data { get; set; }
+        public UserProfileDTO Data { get; set; }
     }
 
 }

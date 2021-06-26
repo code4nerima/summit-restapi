@@ -1,5 +1,4 @@
-﻿using CfjSummit.Domain.Models.Enums;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.UserProfiles
 {
@@ -12,6 +11,9 @@ namespace CfjSummit.Domain.Models.DTOs.UserProfiles
         public MultilingualValue UserName { get; set; }
 
         [JsonPropertyName("role")]
-        public UserRole UserRole { get; set; }
+        public int Role { get; set; }
+
+        [JsonPropertyName("photoURL")]
+        public string PhotoURL { get; set; }
     }
 }
