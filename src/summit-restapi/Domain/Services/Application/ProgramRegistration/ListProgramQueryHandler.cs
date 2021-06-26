@@ -1,5 +1,6 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
+using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             if (takeCount <= 0) { takeCount = int.MaxValue; }
             var query = await _repository.GetAll()
                 .Include(x => x.Track)
+                .Include(x => x.ProgramGenres)
+                .ThenInclude(x => x.Genre)
                 .Where(x =>
 
                 //どっちも入ってない
@@ -67,37 +70,48 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             return new ListProgramResponseDTO()
             {
                 TotalCount = query.Count,
-                Programs = query.Select(x => new ProgramPartsDataDTO()
+                Programs = query.Select(p => new ProgramPartsDataDTO()
                 {
-                    ProgramGuid = x.ProgramGuid,
-                    Category = x.ProgramCategory,
+                    ProgramGuid = p.ProgramGuid,
+                    Category = p.ProgramCategory,
                     Title = new MultilingualValue()
                     {
-                        Ja = x.Title_Ja,
-                        En = x.Title_En,
-                        ZhTw = x.Title_Zh_Tw,
-                        ZhCn = x.Title_Zh_Cn
+                        Ja = p.Title_Ja,
+                        En = p.Title_En,
+                        ZhTw = p.Title_Zh_Tw,
+                        ZhCn = p.Title_Zh_Cn
                     },
-                    Date = x.Date,
-                    StartTime = x.StartTime,
-                    EndTime = x.EndTime,
-                    TrackGuid = x.Track?.TrackGuid ?? "",
+                    Date = p.Date,
+                    StartTime = p.StartTime,
+                    EndTime = p.EndTime,
+                    TrackGuid = p.Track?.TrackGuid ?? "",
                     TrackName = new MultilingualValue()
                     {
-                        Ja = x.Track?.Name_Ja ?? "",
-                        En = x.Track?.Name_En ?? "",
-                        ZhTw = x.Track?.Name_Zh_Tw ?? "",
-                        ZhCn = x.Track?.Name_Zh_Cn ?? ""
+                        Ja = p.Track?.Name_Ja ?? "",
+                        En = p.Track?.Name_En ?? "",
+                        ZhTw = p.Track?.Name_Zh_Tw ?? "",
+                        ZhCn = p.Track?.Name_Zh_Cn ?? ""
                     },
 
                     Description = new MultilingualValue()
                     {
-                        Ja = x.Description_Ja,
-                        En = x.Description_En,
-                        ZhTw = x.Description_Zh_Tw,
-                        ZhCn = x.Description_Zh_Cn
+                        Ja = p.Description_Ja,
+                        En = p.Description_En,
+                        ZhTw = p.Description_Zh_Tw,
+                        ZhCn = p.Description_Zh_Cn
                     },
-                    Email = x.Email
+                    Email = p.Email,
+                    Genres = p.ProgramGenres.Select(x => new GenreDTO()
+                    {
+                        GenreGuid = x.Genre.GenreGuid,
+                        Name = new MultilingualValue()
+                        {
+                            Ja = x.Genre.Name_Ja,
+                            En = x.Genre.Name_En,
+                            ZhTw = x.Genre.Name_Zh_Tw,
+                            ZhCn = x.Genre.Name_Zh_Cn
+                        }
+                    }).ToList(),
                 }).ToList()
             };
         }

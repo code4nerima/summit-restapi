@@ -39,6 +39,7 @@ namespace WebApi
             services.AddScoped<IProgramRepository, ProgramRepository>();
             services.AddScoped<IRequestLogRepository, RequestLogRepository>();
             services.AddScoped<ITrackRepository, TrackRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
             services.AddSwaggerGen(c =>
             {

@@ -26,6 +26,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .Include(x => x.ProgramUserProfiles)
                 .ThenInclude(x => x.UserProfile)
                 .Include(x => x.Track)
+                .Include(x => x.ProgramGenres)
+                .ThenInclude(x => x.Genre)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramId, cancellationToken: cancellationToken);
             if (p == null) { return new ProgramDTO(); }
 
@@ -82,7 +84,18 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhTw = p.Description_Zh_Tw,
                     ZhCn = p.Description_Zh_Cn
                 },
-                Email = p.Email
+                Email = p.Email,
+                Genres = p.ProgramGenres.Select(x => new GenreDTO()
+                {
+                    GenreGuid = x.Genre.GenreGuid,
+                    Name = new MultilingualValue()
+                    {
+                        Ja = x.Genre.Name_Ja,
+                        En = x.Genre.Name_En,
+                        ZhTw = x.Genre.Name_Zh_Tw,
+                        ZhCn = x.Genre.Name_Zh_Cn
+                    }
+                }).ToList(),
             };
             return dto;
         }
