@@ -8,7 +8,7 @@ namespace CfjSummit.Domain.Models.DTOs.UserProfiles
         [JsonPropertyName("totalCount")]
         public int TotalCount { get; set; }
         [JsonPropertyName("userProfiles")]
-        public List<GetUserProfileDTO> UserProfiles { get; set; }
+        public List<UserProfileDTO> UserProfiles { get; set; }
 
     }
 }

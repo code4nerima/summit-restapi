@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 {
-    public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, GetUserProfileDTO>
+    public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, UserProfileDTO>
     {
         private readonly IUserProfileRepository _repository;
 
@@ -18,11 +18,11 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
             _repository = repository;
         }
 
-        public async Task<GetUserProfileDTO> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
+        public async Task<UserProfileDTO> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetAll()
                 .Where(x => x.Uid == request.Uid)
-                .Select(x => new GetUserProfileDTO()
+                .Select(x => new UserProfileDTO()
                 {
                     Uid = x.Uid,
                     Role = x.Role,
@@ -33,7 +33,8 @@ namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
                         En = x.Name_En,
                         ZhTw = x.Name_Zh_Tw,
                         ZhCn = x.Name_Zh_Cn
-                    }
+                    },
+                    PhotoURL = x.PhotoURL
                 })
                 .SingleOrDefaultAsync(cancellationToken: cancellationToken);
         }

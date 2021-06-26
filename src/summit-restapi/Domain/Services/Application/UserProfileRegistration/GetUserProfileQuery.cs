@@ -4,7 +4,7 @@ using MediatR;
 namespace CfjSummit.Domain.Services.Application.UserProfileRegistration
 {
 
-    public class GetUserProfileQuery : IRequest<GetUserProfileDTO>
+    public class GetUserProfileQuery : IRequest<UserProfileDTO>
     {
         public string Uid { get; init; }
         public GetUserProfileQuery(string uid)
