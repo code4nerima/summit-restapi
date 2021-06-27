@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Services.Application.TrackRegistration
 {
-    public class DeleteTrackCommandHandler : IRequestHandler<DeleteTrackCommand, bool>
+    public class DeleteTrackCommandHandler : IRequestHandler<DeleteTrackCommand, int>
     {
         private readonly ITrackRepository _repository;
 
@@ -16,16 +16,15 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeleteTrackCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeleteTrackCommand request, CancellationToken cancellationToken)
         {
             var track = await _repository.GetAll()
                 .Include(x => x.Programs)
                 .SingleOrDefaultAsync(x => x.TrackGuid == request.TrackGuid, cancellationToken: cancellationToken);
 
-            if (track.Programs.Any()) { return false; }
+            if (track.Programs.Any()) { return -1; }
             _repository.Remove(track);
-            _ = await _repository.SaveChangesAsync();
-            return true;
+            return await _repository.SaveChangesAsync();
         }
     }
 }

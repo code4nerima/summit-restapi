@@ -13,12 +13,20 @@ namespace CfjSummit.Infrastructure.Repositories
 
         }
 
-        public async ValueTask<Program> GetProgramWithUserProfilesAsync(string programId)
+        public async ValueTask<Program> GetProgramWithGenresAsync(string programGuid)
         {
             return await _table
+                .Include(x => x.ProgramGenres)
+                .SingleOrDefaultAsync(x => x.ProgramGuid == programGuid);
+
+        }
+
+        public async ValueTask<Program> GetProgramWithUserProfilesAsync(string programGuid)
+        {
+            return await GetAllForUpdate()
                 .Include(x => x.ProgramUserProfiles)
                 .ThenInclude(x => x.UserProfile)
-                .SingleOrDefaultAsync(x => x.ProgramGuid == programId);
+                .SingleOrDefaultAsync(x => x.ProgramGuid == programGuid);
         }
 
     }

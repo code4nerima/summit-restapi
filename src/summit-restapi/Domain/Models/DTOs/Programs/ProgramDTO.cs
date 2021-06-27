@@ -14,5 +14,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
 
         [JsonPropertyName("members")]
         public List<ProgramMemberDTO> ProgramMembers { set; get; } = new();
+
+
     }
 }

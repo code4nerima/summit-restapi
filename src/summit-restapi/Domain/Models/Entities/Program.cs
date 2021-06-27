@@ -100,6 +100,14 @@ namespace CfjSummit.Domain.Models.Entities
         public long? TrackId { private set; get; }
         public Track Track { private set; get; }
 
+        private readonly List<ProgramGenre> _programGenres = new();
+        public IReadOnlyCollection<ProgramGenre> ProgramGenres => _programGenres;
 
+        public void ClearProgramGenres() => _programGenres.Clear();
+        public void AddRangeProgramGenres(IReadOnlyList<long> genreIds)
+        {
+            var items = genreIds.Select(genreId => new ProgramGenre(Id, genreId));
+            _programGenres.AddRange(items);
+        }
     }
 }

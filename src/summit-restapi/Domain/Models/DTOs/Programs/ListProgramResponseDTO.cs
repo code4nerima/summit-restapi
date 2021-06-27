@@ -3,10 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs
 {
-    public class ListProgramResponseDTO
+    public class ListProgramResponseDTO : ListResponseDTO
     {
-        [JsonPropertyName("totalCount")]
-        public int TotalCount { get; set; }
         [JsonPropertyName("programs")]
         public List<ProgramPartsDataDTO> Programs { get; set; }
     }

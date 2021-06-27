@@ -1,5 +1,5 @@
-﻿using CfjSummit.Domain.Models.DTOs.Programs;
-using CfjSummit.Domain.Services.Application.ProgramRegistration;
+﻿using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
+using CfjSummit.Domain.Services.Application.ProgramRegistration.Attachments;
 using CfjSummit.WebApi.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,43 +10,41 @@ namespace CfjSummit.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UpdateProgramController : ControllerBase
+    public class UpdateGenreController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public UpdateProgramController(IMediator mediator)
+        public UpdateGenreController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async ValueTask<ActionResult<UpdateProgramResponse>> PostAsync([FromBody] UpdateProgramRequest request, [FromHeader] string authorization)
+        public async ValueTask<ActionResult<UpdateGenreResponse>> PostAsync([FromBody] UpdateGenreRequest request, [FromHeader] string authorization)
         {
             await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
-
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
-            var command = new UpdateProgramCommand(request.Data);
+            var command = new UpdateGenreCommand(request.Data);
             var affected = await _mediator.Send(command);
 
-            return new UpdateProgramResponse()
+            return new UpdateGenreResponse()
             {
                 Result = affected == 1 ? "1" : "0",
-                Data = new ProgramKeyDataDTO()
+                Data = new GenreKeyDataDTO()
                 {
-                    ProgramGuid = request.Data.ProgramGuid
+                    GenreGuid = request.Data.GenreGuid
                 }
             };
         }
-
     }
-    public class UpdateProgramRequest : AbstractRequestBody
+    public class UpdateGenreRequest : AbstractRequestBody
     {
         [JsonPropertyName("data")]
-        public ProgramPartsDataDTO Data { get; set; }
+        public GenreDTO Data { get; set; }
     }
-    public class UpdateProgramResponse : AbstractResponseBody
+    public class UpdateGenreResponse : AbstractResponseBody
     {
         [JsonPropertyName("data")]
-        public ProgramKeyDataDTO Data { get; set; }
+        public GenreKeyDataDTO Data { get; set; }
     }
 }
