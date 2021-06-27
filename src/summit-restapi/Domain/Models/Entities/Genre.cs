@@ -17,6 +17,11 @@ namespace CfjSummit.Domain.Models.Entities
 
         }
 
+        public void Update(GenreDTO dto)
+        {
+            Edit(dto);
+        }
+
         private void Edit(GenreDTO dto)
         {
             Name_Ja = dto.Name.Ja;

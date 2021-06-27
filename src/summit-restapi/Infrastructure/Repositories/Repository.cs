@@ -30,6 +30,9 @@ namespace CfjSummit.Infrastructure.Repositories
         }
 
         public IQueryable<TEntity> GetAll() => _table.AsNoTracking();
+
+        public IQueryable<TEntity> GetAllForUpdate() => _table.AsTracking();
+
         public TEntity GetById(long id) => _table.Find(id);
         public void Remove(TEntity entity) => _table.Remove(entity);
 

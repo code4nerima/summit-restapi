@@ -23,7 +23,7 @@ namespace CfjSummit.Infrastructure.Repositories
 
         public async ValueTask<Program> GetProgramWithUserProfilesAsync(string programGuid)
         {
-            return await _table
+            return await GetAllForUpdate()
                 .Include(x => x.ProgramUserProfiles)
                 .ThenInclude(x => x.UserProfile)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == programGuid);

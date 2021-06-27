@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CfjSummit.Domain.Services.Application.TrackRegistration
 {
-    public class UpdateTrackCommand : IRequest<string>
+    public class UpdateTrackCommand : IRequest<int>
     {
         public TrackDTO TrackDTO { get; set; }
         public UpdateTrackCommand(TrackDTO dto)

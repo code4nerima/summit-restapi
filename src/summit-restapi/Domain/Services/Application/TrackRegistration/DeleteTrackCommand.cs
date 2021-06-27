@@ -2,7 +2,7 @@
 
 namespace CfjSummit.Domain.Services.Application.TrackRegistration
 {
-    public class DeleteTrackCommand : IRequest<bool>
+    public class DeleteTrackCommand : IRequest<int>
     {
         public string TrackGuid { get; }
 

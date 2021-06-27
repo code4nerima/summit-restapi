@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 {
-    public class UpdateProgramCommandHandler : IRequestHandler<UpdateProgramCommand, string>
+    public class UpdateProgramCommandHandler : IRequestHandler<UpdateProgramCommand, int>
     {
         private readonly IProgramRepository _repository;
         private readonly IQueryableRepository<Track> _trackRepository;
@@ -21,7 +21,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             _genreRepository = genreRepository;
         }
 
-        public async Task<string> Handle(UpdateProgramCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(UpdateProgramCommand request, CancellationToken cancellationToken)
         {
             var p = await _repository.GetProgramWithGenresAsync(request.ProgramPartsDataDTO.ProgramGuid);
             if (p == null) { throw new Exception(); }
@@ -40,8 +40,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 p.AddRangeProgramGenres(genreIds);
             }
             _repository.Update(p);
-            _ = await _repository.SaveChangesAsync();
-            return p.ProgramGuid;
+            return await _repository.SaveChangesAsync();
         }
     }
 }

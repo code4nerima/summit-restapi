@@ -25,10 +25,11 @@ namespace CfjSummit.WebApi.Controllers
             await _mediator.Send(Logger.CreateWriteLogCommand(Request, request));
             if (!Authorization.Authorized(authorization)) { return Unauthorized(); }
             var command = new UpdateTrackCommand(request.Data);
-            _ = await _mediator.Send(command);
+            var affected = await _mediator.Send(command);
 
             return new UpdateTrackResponse()
             {
+                Result = affected == 1 ? "1" : "0",
                 Data = new TrackKeyDataDTO()
                 {
                     TrackGuid = request.Data.TrackGuid
