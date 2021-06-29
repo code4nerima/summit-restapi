@@ -109,5 +109,8 @@ namespace CfjSummit.Domain.Models.Entities
             var items = genreIds.Select(genreId => new ProgramGenre(Id, genreId));
             _programGenres.AddRange(items);
         }
+
+        private readonly List<ProgramPresenter> _programPresenters = new();
+        public IReadOnlyCollection<ProgramPresenter> ProgramPresenters => _programPresenters;
     }
 }
