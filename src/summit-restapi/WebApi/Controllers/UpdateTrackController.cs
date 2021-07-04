@@ -29,7 +29,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new UpdateTrackResponse()
             {
-                Result = affected == 1 ? "1" : "0",
+                Result = affected >= 1 ? "1" : "0",
                 Data = new TrackKeyDataDTO()
                 {
                     TrackGuid = request.Data.TrackGuid
