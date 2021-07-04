@@ -30,7 +30,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new UpdateProgramResponse()
             {
-                Result = affected == 1 ? "1" : "0",
+                Result = affected >= 1 ? "1" : "0",
                 Data = new ProgramKeyDataDTO()
                 {
                     ProgramGuid = request.Data.ProgramGuid

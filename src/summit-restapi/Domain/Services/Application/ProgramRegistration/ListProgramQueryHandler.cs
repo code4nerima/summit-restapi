@@ -1,13 +1,11 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
-using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static CfjSummit.Domain.Models.Entities.Program;
 
 namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 {
@@ -28,39 +26,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .Include(x => x.Track)
                 .Include(x => x.ProgramGenres)
                 .ThenInclude(x => x.Genre)
-                .Where(x =>
-
-                //どっちも入ってない
-                (
-                    string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid)
-                )
-
-                ||
-
-                //どっちも入ってる
-                (
-                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) && !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
-                    (
-                        x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid || x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid)
-                    )
-                )
-
-                ||
-
-                //Ownerのみ
-                (
-                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramOwnerUid) &&
-                    x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramOwnerUid && x.ProgramRole == (int)ProgramRoleEnum.Owner)
-                )
-
-                ||
-
-                //Memberのみ
-                (
-                    !string.IsNullOrEmpty(request.ListProgramRequestDTO.ProgramMemberUid) &&
-                    x.ProgramUserProfiles.Any(x => x.UserProfile.Uid == request.ListProgramRequestDTO.ProgramMemberUid && x.ProgramRole == (int)ProgramRoleEnum.Member)
-                )
-                )
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
@@ -101,19 +66,10 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         ZhCn = p.Description_Zh_Cn
                     },
                     Email = p.Email,
-                    Genres = p.ProgramGenres.Select(x => new GenreDTO()
-                    {
-                        GenreGuid = x.Genre.GenreGuid,
-                        Name = new MultilingualValue()
-                        {
-                            Ja = x.Genre.Name_Ja,
-                            En = x.Genre.Name_En,
-                            ZhTw = x.Genre.Name_Zh_Tw,
-                            ZhCn = x.Genre.Name_Zh_Cn
-                        }
-                    }).ToList(),
+                    GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList()
                 }).ToList()
             };
         }
+
     }
 }

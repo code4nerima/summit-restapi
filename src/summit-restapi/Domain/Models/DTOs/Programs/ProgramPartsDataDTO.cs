@@ -1,5 +1,4 @@
-﻿using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs
@@ -36,7 +35,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("genreIds")]
         public List<string> GenreGuids { set; get; } = new();
 
-        [JsonPropertyName("genres")]
-        public List<GenreDTO> Genres { set; get; } = new();
+        //[JsonPropertyName("genres")]
+        //public List<GenreDTO> Genres { set; get; } = new();
     }
 }
