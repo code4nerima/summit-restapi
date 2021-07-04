@@ -29,7 +29,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new UpdateGenreResponse()
             {
-                Result = affected == 1 ? "1" : "0",
+                Result = affected >= 1 ? "1" : "0",
                 Data = new GenreKeyDataDTO()
                 {
                     GenreGuid = request.Data.GenreGuid
