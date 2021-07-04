@@ -6,12 +6,12 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
     public class ListRelatedProgramResponseDTO
     {
         [JsonPropertyName("ownerOfPrograms")]
-        public List<string> OwnerOfPrograms { get; set; }
+        public List<ProgramDTO> OwnerOfPrograms { get; set; }
 
         [JsonPropertyName("memberOfPrograms")]
-        public List<string> MemberOfPrograms { get; set; }
+        public List<ProgramDTO> MemberOfPrograms { get; set; }
 
         [JsonPropertyName("submittedProgram")]
-        public List<string> SubmittedProgram { get; set; }
+        public List<ProgramDTO> SubmittedProgram { get; set; }
     }
 }
