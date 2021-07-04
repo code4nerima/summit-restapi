@@ -21,12 +21,12 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         public async Task<ListRelatedProgramResponseDTO> Handle(ListRelatedProgramQuery request, CancellationToken cancellationToken)
         {
             var programs = await _repository.GetAll()
-                .Include(x => x.ProgramUserProfiles)
-                .ThenInclude(x => x.UserProfile)
+                                      .Include(x => x.ProgramUserProfiles)
+                                      .ThenInclude(x => x.UserProfile)
                 .Include(x => x.Track)
                 .Include(x => x.ProgramGenres)
                 .ThenInclude(x => x.Genre)
-                .ToListAsync(cancellationToken);
+                                      .ToListAsync(cancellationToken);
 
             return new ListRelatedProgramResponseDTO()
             {
