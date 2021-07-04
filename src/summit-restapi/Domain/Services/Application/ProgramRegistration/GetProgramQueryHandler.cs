@@ -85,17 +85,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhCn = p.Description_Zh_Cn
                 },
                 Email = p.Email,
-                Genres = p.ProgramGenres.Select(x => new GenreDTO()
-                {
-                    GenreGuid = x.Genre.GenreGuid,
-                    Name = new MultilingualValue()
-                    {
-                        Ja = x.Genre.Name_Ja,
-                        En = x.Genre.Name_En,
-                        ZhTw = x.Genre.Name_Zh_Tw,
-                        ZhCn = x.Genre.Name_Zh_Cn
-                    }
-                }).ToList(),
+                GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList()
             };
             return dto;
         }
