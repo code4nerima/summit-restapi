@@ -12,7 +12,7 @@ namespace CfjSummit.Domain.Models.Entities
 
         public Genre(GenreDTO dto)
         {
-            GenreGuid = NewGuid;
+            GenreGuid = GetNewGuid();
             Edit(dto);
 
         }

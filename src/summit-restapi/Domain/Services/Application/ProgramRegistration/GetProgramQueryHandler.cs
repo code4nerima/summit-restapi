@@ -25,6 +25,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .Include(x => x.Track)
                 .Include(x => x.ProgramGenres)
                 .ThenInclude(x => x.Genre)
+                .Include(x => x.ProgramPresenters)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramId, cancellationToken: cancellationToken);
             if (p == null) { return new ProgramDTO(); }
 

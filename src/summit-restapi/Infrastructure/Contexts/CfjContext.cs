@@ -18,6 +18,6 @@ namespace CfjSummit.Infrastructure.Contexts
         public DbSet<RequestLog> RequestLogs { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<ProgramGenre> ProgramGenres { get; set; }
-        //public DbSet<ProgramPresenter> ProgramPresenters { get; set; }
+        public DbSet<ProgramPresenter> ProgramPresenters { get; set; }
     }
 }

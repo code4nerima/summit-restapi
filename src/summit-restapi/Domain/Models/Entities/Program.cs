@@ -20,7 +20,7 @@ namespace CfjSummit.Domain.Models.Entities
         }
         public Program(ProgramPartsDataDTO dto)
         {
-            ProgramGuid = NewGuid;
+            ProgramGuid = GetNewGuid();
             Edit(dto);
         }
 
@@ -112,5 +112,7 @@ namespace CfjSummit.Domain.Models.Entities
 
         private readonly List<ProgramPresenter> _programPresenters = new();
         public IReadOnlyCollection<ProgramPresenter> ProgramPresenters => _programPresenters;
+        public void AddProgramPresenter(ProgramPresenter presenter) => _programPresenters.Add(presenter);
+
     }
 }
