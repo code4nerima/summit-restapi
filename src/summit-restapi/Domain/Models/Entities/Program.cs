@@ -44,6 +44,11 @@ namespace CfjSummit.Domain.Models.Entities
             _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Owner);
         }
 
+        public void RemoveProgramPresenter(ProgramPresenter programPresenter)
+        {
+            _programPresenters.Remove(programPresenter);
+        }
+
         public void ClearProgramMember()
         {
             _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Member);

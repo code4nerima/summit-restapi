@@ -38,14 +38,19 @@ namespace CfjSummit.Domain.Models.Entities
 
         public virtual int SortOrder { get; private set; }
 
+        public void Update(ProgramPresenterDTO dto)
+        {
+            Edit(dto);
+        }
+
 
         private void Edit(ProgramPresenterDTO dto)
         {
-            Name_Ja = dto.UserName?.Ja;
-            Name_Ja_Kana = dto.UserName.Ja_Kana;
-            Name_En = dto.UserName?.En;
-            Name_Zh_Tw = dto.UserName?.ZhTw;
-            Name_Zh_Cn = dto.UserName?.ZhCn;
+            Name_Ja = dto.Name?.Ja;
+            Name_Ja_Kana = dto.Name.Ja_Kana;
+            Name_En = dto.Name?.En;
+            Name_Zh_Tw = dto.Name?.ZhTw;
+            Name_Zh_Cn = dto.Name?.ZhCn;
 
             Organization_Ja = dto.Organization?.Ja;
             Organization_En = dto.Organization?.En;
