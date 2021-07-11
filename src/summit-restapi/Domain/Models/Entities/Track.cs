@@ -12,7 +12,7 @@ namespace CfjSummit.Domain.Models.Entities
 
         public Track(TrackDTO dto)
         {
-            TrackGuid = NewGuid;
+            TrackGuid = GetNewGuid();
             Edit(dto);
         }
         public virtual string TrackGuid { set; get; }

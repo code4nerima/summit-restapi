@@ -11,7 +11,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("memberOfPrograms")]
         public List<ProgramDTO> MemberOfPrograms { get; set; }
 
-        [JsonPropertyName("submittedProgram")]
-        public List<ProgramDTO> SubmittedProgram { get; set; }
+        [JsonPropertyName("submittedPrograms")]
+        public List<ProgramDTO> SubmittedPrograms { get; set; }
     }
 }

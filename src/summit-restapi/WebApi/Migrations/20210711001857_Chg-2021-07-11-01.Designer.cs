@@ -4,14 +4,16 @@ using CfjSummit.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CfjSummit.WebApi.Migrations
 {
     [DbContext(typeof(CfjContext))]
-    partial class CfjContextModelSnapshot : ModelSnapshot
+    [Migration("20210711001857_Chg-2021-07-11-01")]
+    partial class Chg2021071101
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,9 +194,6 @@ namespace CfjSummit.WebApi.Migrations
                     b.Property<string>("Name_Ja")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name_Ja_Kana")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name_Zh_Cn")
                         .HasColumnType("nvarchar(max)");
 
@@ -216,11 +215,8 @@ namespace CfjSummit.WebApi.Migrations
                     b.Property<string>("PhotoURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ProgramId")
+                    b.Property<long>("ProgramId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("ProgramPresenterGuid")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
@@ -234,7 +230,7 @@ namespace CfjSummit.WebApi.Migrations
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("ProgramPresenters");
+                    b.ToTable("ProgramPresenter");
                 });
 
             modelBuilder.Entity("CfjSummit.Domain.Models.Entities.ProgramUserProfile", b =>
@@ -457,7 +453,9 @@ namespace CfjSummit.WebApi.Migrations
                 {
                     b.HasOne("CfjSummit.Domain.Models.Entities.Program", "Program")
                         .WithMany("ProgramPresenters")
-                        .HasForeignKey("ProgramId");
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Program");
                 });

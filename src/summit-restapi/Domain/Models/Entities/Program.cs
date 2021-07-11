@@ -20,7 +20,7 @@ namespace CfjSummit.Domain.Models.Entities
         }
         public Program(ProgramPartsDataDTO dto)
         {
-            ProgramGuid = NewGuid;
+            ProgramGuid = GetNewGuid();
             Edit(dto);
         }
 
@@ -42,6 +42,11 @@ namespace CfjSummit.Domain.Models.Entities
         public void ClearProgramOwner()
         {
             _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Owner);
+        }
+
+        public void RemoveProgramPresenter(ProgramPresenter programPresenter)
+        {
+            _programPresenters.Remove(programPresenter);
         }
 
         public void ClearProgramMember()
@@ -109,5 +114,10 @@ namespace CfjSummit.Domain.Models.Entities
             var items = genreIds.Select(genreId => new ProgramGenre(Id, genreId));
             _programGenres.AddRange(items);
         }
+
+        private readonly List<ProgramPresenter> _programPresenters = new();
+        public IReadOnlyCollection<ProgramPresenter> ProgramPresenters => _programPresenters;
+        public void AddProgramPresenter(ProgramPresenter presenter) => _programPresenters.Add(presenter);
+
     }
 }

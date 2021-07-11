@@ -4,14 +4,16 @@ using CfjSummit.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CfjSummit.WebApi.Migrations
 {
     [DbContext(typeof(CfjContext))]
-    partial class CfjContextModelSnapshot : ModelSnapshot
+    [Migration("20210711103207_Chg-2021-07-11-05")]
+    partial class Chg2021071105
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
