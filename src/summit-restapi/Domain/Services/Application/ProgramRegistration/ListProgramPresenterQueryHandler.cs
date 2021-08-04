@@ -25,6 +25,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
 
 
             var programPresenters = await _repository.GetAll()
+                                                     .Include(x => x.ProgramPresenters)
+                                                     .ThenInclude(x => x.ProgramPresenterLinks)
                                                      .Where(x => x.ProgramGuid == request.ListPresenterRequestDTO.ProgramGuid)
                                                      .SelectMany(x => x.ProgramPresenters)
                                                      .OrderBy(x => x.SortOrder)

@@ -55,6 +55,8 @@ namespace CfjSummit.Domain.Models.Entities
         }
         public string EndTime { private set; get; }
         public string Email { private set; get; }
+        public string InputCompleted { private set; get; } = "0";
+
 
         public void AddRangeProgramOwners(IReadOnlyList<long> userProfileIds)
         {
@@ -88,9 +90,10 @@ namespace CfjSummit.Domain.Models.Entities
             Description_Zh_Tw = dto.Description.ZhTw;
             Description_Zh_Cn = dto.Description.ZhCn;
             Email = dto.Email;
+            InputCompleted = dto.InputCompleted;
+            _programLinks.Clear();
+            _programLinks.AddRange(dto.ProgramLinks.Select(pl => new ProgramLink(pl)));
         }
-
-
 
         private readonly List<ProgramUserProfile> _programUserProfiles = new();
         public IReadOnlyCollection<ProgramUserProfile> ProgramUserProfiles => _programUserProfiles;
@@ -118,6 +121,13 @@ namespace CfjSummit.Domain.Models.Entities
         private readonly List<ProgramPresenter> _programPresenters = new();
         public IReadOnlyCollection<ProgramPresenter> ProgramPresenters => _programPresenters;
         public void AddProgramPresenter(ProgramPresenter presenter) => _programPresenters.Add(presenter);
+
+
+        private readonly List<ProgramLink> _programLinks = new();
+        public IReadOnlyCollection<ProgramLink> ProgramLinks => _programLinks;
+        public void AddRangeProgramLinks(IReadOnlyList<ProgramLink> programLinks) => _programLinks.AddRange(programLinks);
+        public void ClearProgramLinks() => _programLinks.Clear();
+
 
     }
 }
