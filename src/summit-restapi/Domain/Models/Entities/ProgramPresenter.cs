@@ -1,4 +1,6 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CfjSummit.Domain.Models.Entities
 {
@@ -38,6 +40,12 @@ namespace CfjSummit.Domain.Models.Entities
 
         public virtual int SortOrder { get; private set; }
 
+        private readonly List<ProgramPresenterLink> _programPresenterLinks = new();
+        public IReadOnlyCollection<ProgramPresenterLink> ProgramPresenterLinks => _programPresenterLinks;
+        public void AddRangeProgramPresenterLinks(IReadOnlyList<ProgramPresenterLink> programPresenterLinks) => _programPresenterLinks.AddRange(programPresenterLinks);
+        public void ClearProgramPresenterLinks() => _programPresenterLinks.Clear();
+
+
         public void Update(ProgramPresenterDTO dto)
         {
             Edit(dto);
@@ -65,6 +73,9 @@ namespace CfjSummit.Domain.Models.Entities
             PhotoURL = dto.PhotoURL;
 
             SortOrder = dto.SortOrder;
+
+            ClearProgramPresenterLinks();
+            AddRangeProgramPresenterLinks(dto.ProgramPresenterLinks.Select(x => new ProgramPresenterLink(x)).ToList());
         }
 
     }

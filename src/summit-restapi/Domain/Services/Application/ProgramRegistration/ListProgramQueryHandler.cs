@@ -66,6 +66,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         ZhCn = p.Description_Zh_Cn
                     },
                     Email = p.Email,
+                    InputCompleted = p.InputCompleted,
                     GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList()
                 }).ToList()
             };

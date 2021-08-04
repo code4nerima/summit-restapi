@@ -30,6 +30,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         {
             return await _repository.GetAll()
                                     .Include(x => x.ProgramPresenters)
+                                    .ThenInclude(x => x.ProgramPresenterLinks)
                                     .Where(x => x.ProgramGuid == request.ProgramPresenterKeyDataDTO.ProgramGuid)
                                     .SelectMany(x => x.ProgramPresenters)
                                     .Where(x => x.ProgramPresenterGuid == request.ProgramPresenterKeyDataDTO.ProgramPresenterGuid)

@@ -1,4 +1,6 @@
 ﻿using CfjSummit.Domain.Models.Entities;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
@@ -19,6 +21,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 
         [JsonPropertyName("sortOrder")]
         public int SortOrder { get; set; }
+
+        [JsonPropertyName("urls")]
+        public List<ProgramPresenterLinkDTO> ProgramPresenterLinks { set; get; } = new();
 
         public static ProgramPresenterDTO CreateDto(ProgramPresenter pp)
         {
@@ -48,7 +53,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
                     ZhCn = pp.Organization_Zh_Cn
                 },
                 PhotoURL = pp.PhotoURL,
-                SortOrder = pp.SortOrder
+                SortOrder = pp.SortOrder,
+                ProgramPresenterLinks = pp.ProgramPresenterLinks.Select(x => ProgramPresenterLinkDTO.CreateDto(x)).ToList()
             };
             return dto;
         }

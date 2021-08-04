@@ -73,11 +73,26 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                     ZhCn = p.Description_Zh_Cn
                 },
                 Email = p.Email,
+                InputCompleted = p.InputCompleted,
                 GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList(),
                 ProgramPresenters = p.ProgramPresenters.OrderBy(x => x.SortOrder)
                                                        .ThenBy(x => x.Name_Ja_Kana)
                                                        .Select(x => ProgramPresenterDTO.CreateDto(x))
-                                                       .ToList()
+                                                       .ToList(),
+                ProgramLinks = p.ProgramLinks.OrderBy(x => x.SortOrder)
+                                            .ThenBy(x => x.Title_Ja)
+                                            .Select(x => new ProgramLinkDTO()
+                                            {
+                                                Title = new MultilingualValue()
+                                                {
+                                                    Ja = x.Title_Ja,
+                                                    En = x.Title_En,
+                                                    ZhTw = x.Title_Zh_Tw,
+                                                    ZhCn = x.Title_Zh_Cn
+                                                },
+                                                SortOrder = x.SortOrder,
+                                                Url = x.Url
+                                            }).ToList(),
             };
             return dto;
 
