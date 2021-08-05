@@ -28,6 +28,7 @@ namespace WebApi
         {
 
             services.AddControllers();
+            services.AddHealthChecks();
 
             services.AddDbContext<CfjContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CfjContext"),
@@ -63,9 +64,12 @@ namespace WebApi
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/wakeup");
+
             });
         }
     }
