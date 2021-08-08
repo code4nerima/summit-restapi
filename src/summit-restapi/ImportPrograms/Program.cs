@@ -16,12 +16,12 @@ namespace ImportPrograms
         async static Task Main(string[] args)
         {
             //Excelオープン
-            var path = @"C:\Users\eveni\Downloads\Time Table-2.xlsx";
+            var path = @"C:\Users\eveni\Downloads\Time Table-3.xlsx";
             var book = new XSSFWorkbook(path);
 
             var sheet = book.GetSheet("応募データ");
             var requestBodyList = new List<CreateProgramRequest>();
-            foreach (var i in Enumerable.Range(1, 43))
+            foreach (var i in Enumerable.Range(1, 51))
             {
                 var row = sheet.GetRow(i);
                 var id = row.GetCell(0).Value();
@@ -40,7 +40,7 @@ namespace ImportPrograms
                 var 所属 = row.GetCell(9).Value();
                 var プログラムの形式 = row.GetCell(10).Value();
                 var ライブ登壇か録画提出か = row.GetCell(12).Value();
-                var プログラムテーマ_ジャンルs = row.GetCell(13).Value().Split(",");
+                var プログラムテーマ_ジャンルs = row.GetCell(13).Value() == "" ? Array.Empty<string>() : row.GetCell(13).Value().Split(",");
                 var プログラム概要 = row.GetCell(16).Value();
 
                 var category = 0;
@@ -88,24 +88,32 @@ namespace ImportPrograms
                             Ja = $"{申込者_漢字}-{所属}",
                         },
                         TrackGuid = GetTrackGuid(track),
-                        GenreGuids = プログラムテーマ_ジャンルs.Select(x => GetGenreGuid(x)).ToList(),
+                        GenreGuids = プログラムテーマ_ジャンルs.Length == 0 ? Array.Empty<string>().ToList() : プログラムテーマ_ジャンルs.Select(x => GetGenreGuid(x)).ToList(),
+                        InputCompleted = "0",
                     }
                 };
                 requestBodyList.Add(requestBody);
             }
             book.Close();
 
-            var client = new HttpClient();
-            var message = new HttpRequestMessage(HttpMethod.Post, "http://localhost:44359/api/CreateProgram");
-            message.Headers.Add("authorization", "aaaaa");
+            using var client = new HttpClient();
+            foreach (var request in requestBodyList)
+            {
 
-            var text = JsonSerializer.Serialize(requestBodyList.First());
-            message.Content = new StringContent(text, Encoding.UTF8, "application/json");
-            var re = await client.SendAsync(message);
+                var message = new HttpRequestMessage(HttpMethod.Post, "https://webapi20210430062843.azurewebsites.net/api/CreateProgram");
+                message.Headers.Add("authorization", "aaaaa");
+
+                var text = JsonSerializer.Serialize(request);
+                message.Content = new StringContent(text, Encoding.UTF8, "application/json");
+                var re = await client.SendAsync(message);
 
 
-            //CreateProgramのRequestbody作成
-            var aaa = re.StatusCode;
+                //CreateProgramのRequestbody作成
+                if (re.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    throw new Exception();
+                }
+            }
             //CreateProgram実行
         }
 
@@ -121,7 +129,8 @@ namespace ImportPrograms
                 "6" => "916c1021088046c086558c656ef877bd",
                 "7" => "9712dbc0c0f645d28077bd1c61f00489",
                 "8" => "5c8221538c9143aa969ac119a2d50675",
-                "9" => "hoge",
+                "9" => "de6922ea1b6c43f59dfadeb19d4c9d8b",
+                "0" => "f98c53260d024ab383ec9c7c8a0e82b0",
                 _ => throw new Exception(),
             };
         }
