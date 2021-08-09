@@ -5,7 +5,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 {
     public class ProgramPresenterLinkDTO
     {
-        private ProgramPresenterLinkDTO()
+        public ProgramPresenterLinkDTO()
         {
 
         }

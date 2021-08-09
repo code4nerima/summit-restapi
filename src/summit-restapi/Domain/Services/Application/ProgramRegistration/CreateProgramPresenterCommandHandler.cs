@@ -20,8 +20,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         public async Task<string> Handle(CreateProgramPresenterCommand request, CancellationToken cancellationToken)
         {
             var program = await _repository.GetAllForUpdate()
-                                           .Include(x => x.ProgramPresenters)
-                                           .ThenInclude(x => x.ProgramPresenterLinks)
                                            .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramPresenterDTO.ProgramGuid, cancellationToken: cancellationToken);
 
             if (program == null) { throw new Exception("指定されたプログラムIDはありません"); }
