@@ -7,6 +7,10 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 {
     public class ProgramPresenterDTO : ProgramPresenterKeyDataDTO
     {
+        public ProgramPresenterDTO()
+        {
+
+        }
         [JsonPropertyName("name")]
         public MultilingualValue Name { get; set; }
 

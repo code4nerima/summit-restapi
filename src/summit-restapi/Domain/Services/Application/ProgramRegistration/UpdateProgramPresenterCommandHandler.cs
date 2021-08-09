@@ -21,6 +21,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
         {
             var program = await _repository.GetAllForUpdate()
                                            .Include(x => x.ProgramPresenters.Where(x => x.ProgramPresenterGuid == request.ProgramPresenterDTO.ProgramPresenterGuid))
+                                           .ThenInclude(x => x.ProgramPresenterLinks)
                                            .SingleOrDefaultAsync(x => x.ProgramGuid == request.ProgramPresenterDTO.ProgramGuid, cancellationToken: cancellationToken);
             if (program == null) { throw new Exception("プログラムが登録されていません"); }
             var programPresenter = program.ProgramPresenters.SingleOrDefault();
