@@ -9,8 +9,8 @@ namespace CfjSummit.WebApi
     {
         public static CreateRequestLogCommand CreateWriteLogCommand(HttpRequest request, object requestBody)
         {
-            var uid = (requestBody as AbstractRequestBody).Uid;
-            var json = JsonSerializer.Serialize(requestBody);
+            var uid = (requestBody as AbstractRequestBody)?.Uid;
+            var json = !string.IsNullOrEmpty(requestBody.ToString()) ? JsonSerializer.Serialize(requestBody) : "";
             var cmd = new CreateRequestLogCommand(uid,
                                                   request.Method,
                                                   request.RouteValues["controller"].ToString(),
