@@ -20,8 +20,8 @@ namespace CfjSummit.WebApi.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
-        public async ValueTask<ActionResult<ListProgramForWebResponse>> PostAsync([FromHeader] string authorization,
+        [HttpGet]
+        public async ValueTask<ActionResult<ListProgramForWebResponse>> GetAsync([FromHeader] string authorization,
             [FromQuery] string lang, [FromQuery] string date)
         {
             await _mediator.Send(Logger.CreateWriteLogCommand(Request, ""));
