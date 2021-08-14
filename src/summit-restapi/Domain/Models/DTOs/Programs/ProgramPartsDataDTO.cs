@@ -36,6 +36,11 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("inputCompleted")]
         public string InputCompleted { set; get; }
 
+        [JsonPropertyName("udtalkWebURL")]
+        public virtual string UdTalkWebURL { get; set; }
+        [JsonPropertyName("udtalkAppURL")]
+        public virtual string UdTalkAppURL { get; set; }
+
         [JsonPropertyName("genreIds")]
         public List<string> GenreGuids { set; get; } = new();
 

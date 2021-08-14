@@ -41,6 +41,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                     ZhTw = p.Track?.Name_Zh_Tw ?? "",
                     ZhCn = p.Track?.Name_Zh_Cn ?? ""
                 },
+                UdTalkWebURL = p.Track?.UdTalkWebURL,
+                UdTalkAppURL = p.Track?.UdTalkAppURL,
                 ProgramOwners = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,
