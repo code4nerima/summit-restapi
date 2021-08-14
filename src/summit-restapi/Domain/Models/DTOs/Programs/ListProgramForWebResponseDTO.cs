@@ -43,8 +43,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         //[JsonPropertyName("email")]
         //public string Email { set; get; }
 
-        //[JsonPropertyName("inputCompleted")]
-        //public string InputCompleted { set; get; }
+        [JsonPropertyName("inputCompleted")]
+        public string InputCompleted { set; get; }
 
         //[JsonPropertyName("genreIds")]
         //public List<string> GenreGuids { set; get; } = new();

@@ -61,6 +61,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         Category = pg.ProgramCategory,
                         StartTime = pg.StartTime,
                         EndTime = pg.EndTime,
+                        InputCompleted = pg.InputCompleted,
                         Title = request.Lang switch
                         {
                             Ja => pg.Title_Ja,
