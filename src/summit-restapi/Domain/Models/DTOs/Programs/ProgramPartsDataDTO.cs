@@ -41,6 +41,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("udtalkAppURL")]
         public virtual string UdTalkAppURL { get; set; }
 
+        [JsonPropertyName("broadcastingURL")]
+        public virtual string BroadcastingURL { get; set; }
+
         [JsonPropertyName("genreIds")]
         public List<string> GenreGuids { set; get; } = new();
 
