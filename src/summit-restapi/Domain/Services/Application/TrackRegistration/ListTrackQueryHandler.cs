@@ -48,7 +48,9 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
                     MeetingUrl = x.MeetingUrl,
                     Station = x.Station,
                     StreamKey = x.StreamKey,
-                    StreamUrl = x.StreamUrl
+                    StreamUrl = x.StreamUrl,
+                    UdTalkWebURL = x.UdTalkWebURL,
+                    UdTalkAppURL = x.UdTalkAppURL
                 }
                 ).ToList()
             };
