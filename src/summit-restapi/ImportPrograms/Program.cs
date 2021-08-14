@@ -1,8 +1,8 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
-using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,92 +15,125 @@ namespace ImportPrograms
     {
         async static Task Main(string[] args)
         {
-            //Excelオープン
-            var path = @"C:\Users\eveni\Downloads\Time Table-3.xlsx";
-            var book = new XSSFWorkbook(path);
+            var path = @"D:\add_resttime.csv";
+            var lines = File.ReadAllLines(path).Skip(1);
 
-            var sheet = book.GetSheet("応募データ");
             var requestBodyList = new List<CreateProgramRequest>();
-            foreach (var i in Enumerable.Range(1, 51))
+
+            foreach (var line in lines)
             {
-                var row = sheet.GetRow(i);
-                var id = row.GetCell(0).Value();
-                if (string.IsNullOrEmpty(id)) { break; }
-
-                var date = row.GetCell(1).Value() == "1" ? "2021-09-18" : "2021-09-19";
-                var track = row.GetCell(2).Value();
-                var startTimeHour = Math.Round(decimal.Parse(row.GetCell(3).Value()) * 24, 0);
-                var startTimeMin = Math.Round(decimal.Parse(row.GetCell(3).Value()) * 24 * 60 - startTimeHour * 60, 0);
-                var startTime = $"{startTimeHour}:{startTimeMin}";
-                var endTimeHour = Math.Round(decimal.Parse(row.GetCell(4).Value()) * 24, 0);
-                var endTimeMin = Math.Round(decimal.Parse(row.GetCell(4).Value()) * 24 * 60 - endTimeHour * 60, 0);
-                var endTime = $"{endTimeHour}:{endTimeMin}";
-                var メールアドレス = row.GetCell(6).Value();
-                var 申込者_漢字 = row.GetCell(7).Value();
-                var 所属 = row.GetCell(9).Value();
-                var プログラムの形式 = row.GetCell(10).Value();
-                var ライブ登壇か録画提出か = row.GetCell(12).Value();
-                var プログラムテーマ_ジャンルs = row.GetCell(13).Value() == "" ? Array.Empty<string>() : row.GetCell(13).Value().Split(",");
-                var プログラム概要 = row.GetCell(16).Value();
-
-                var category = 0;
-                switch (プログラムの形式)
-                {
-                    case "セッション（プレゼンテーション形式の発表）":
-                        if (ライブ登壇か録画提出か == "事前に動画を録画して提出")
-                        {
-                            //録画セッション
-                            category = 3;
-                        }
-                        else if (ライブ登壇か録画提出か == "当日Zoomに接続してライブで登壇")
-                        {
-                            //セッション
-                            category = 1;
-                        }
-                        else
-                        {
-                            //無いパターン
-                            throw new Exception();
-                        }
-                        break;
-                    case "ワークショップ(参加型、ライブ発信なし)":
-                        //ワークショップ
-                        category = 2;
-                        break;
-                }
-                var requestBody = new CreateProgramRequest()
+                var items = line.Split(",");
+                requestBodyList.Add(new CreateProgramRequest()
                 {
                     V = "1",
                     Uid = "Dummy",
                     Data = new ProgramPartsDataDTO()
                     {
-                        Category = category,
-                        Date = date,
-                        Description = new MultilingualValue()
-                        {
-                            Ja = プログラム概要,
-                        },
-                        Email = メールアドレス,
-                        StartTime = startTime,
-                        EndTime = endTime,
+                        Category = 4,
+                        TrackGuid = GetTrackGuid(items[0]),
+                        Date = items[1] == "1" ? "2021-09-18" : "2021-09-19",
+                        StartTime = items[2],
+                        EndTime = items[3],
                         Title = new MultilingualValue()
                         {
-                            Ja = $"{申込者_漢字}-{所属}",
+                            Ja = "休憩",
+                            En = "rest"
                         },
-                        TrackGuid = GetTrackGuid(track),
-                        GenreGuids = プログラムテーマ_ジャンルs.Length == 0 ? Array.Empty<string>().ToList() : プログラムテーマ_ジャンルs.Select(x => GetGenreGuid(x)).ToList(),
-                        InputCompleted = "0",
+                        Description = new MultilingualValue()
+                        {
+                            Ja = "休憩",
+                            En = "rest"
+                        },
+                        InputCompleted = "1"
                     }
-                };
-                requestBodyList.Add(requestBody);
+                });
             }
-            book.Close();
+
+            ////Excelオープン
+            //var path = @"C:\Users\eveni\Downloads\Time Table-3.xlsx";
+            //var book = new XSSFWorkbook(path);
+
+            //var sheet = book.GetSheet("応募データ");
+            //foreach (var i in Enumerable.Range(1, 51))
+            //{
+            //    var row = sheet.GetRow(i);
+            //    var id = row.GetCell(0).Value();
+            //    if (string.IsNullOrEmpty(id)) { break; }
+
+            //    var date = row.GetCell(1).Value() == "1" ? "2021-09-18" : "2021-09-19";
+            //    var track = row.GetCell(2).Value();
+            //    var startTimeHour = Math.Round(decimal.Parse(row.GetCell(3).Value()) * 24, 0);
+            //    var startTimeMin = Math.Round(decimal.Parse(row.GetCell(3).Value()) * 24 * 60 - startTimeHour * 60, 0);
+            //    var startTime = $"{startTimeHour}:{startTimeMin}";
+            //    var endTimeHour = Math.Round(decimal.Parse(row.GetCell(4).Value()) * 24, 0);
+            //    var endTimeMin = Math.Round(decimal.Parse(row.GetCell(4).Value()) * 24 * 60 - endTimeHour * 60, 0);
+            //    var endTime = $"{endTimeHour}:{endTimeMin}";
+            //    var メールアドレス = row.GetCell(6).Value();
+            //    var 申込者_漢字 = row.GetCell(7).Value();
+            //    var 所属 = row.GetCell(9).Value();
+            //    var プログラムの形式 = row.GetCell(10).Value();
+            //    var ライブ登壇か録画提出か = row.GetCell(12).Value();
+            //    var プログラムテーマ_ジャンルs = row.GetCell(13).Value() == "" ? Array.Empty<string>() : row.GetCell(13).Value().Split(",");
+            //    var プログラム概要 = row.GetCell(16).Value();
+
+            //    var category = 0;
+            //    switch (プログラムの形式)
+            //    {
+            //        case "セッション（プレゼンテーション形式の発表）":
+            //            if (ライブ登壇か録画提出か == "事前に動画を録画して提出")
+            //            {
+            //                //録画セッション
+            //                category = 3;
+            //            }
+            //            else if (ライブ登壇か録画提出か == "当日Zoomに接続してライブで登壇")
+            //            {
+            //                //セッション
+            //                category = 1;
+            //            }
+            //            else
+            //            {
+            //                //無いパターン
+            //                throw new Exception();
+            //            }
+            //            break;
+            //        case "ワークショップ(参加型、ライブ発信なし)":
+            //            //ワークショップ
+            //            category = 2;
+            //            break;
+            //    }
+            //    var requestBody = new CreateProgramRequest()
+            //    {
+            //        V = "1",
+            //        Uid = "Dummy",
+            //        Data = new ProgramPartsDataDTO()
+            //        {
+            //            Category = category,
+            //            Date = date,
+            //            Description = new MultilingualValue()
+            //            {
+            //                Ja = プログラム概要,
+            //            },
+            //            Email = メールアドレス,
+            //            StartTime = startTime,
+            //            EndTime = endTime,
+            //            Title = new MultilingualValue()
+            //            {
+            //                Ja = $"{申込者_漢字}-{所属}",
+            //            },
+            //            TrackGuid = GetTrackGuid(track),
+            //            GenreGuids = プログラムテーマ_ジャンルs.Length == 0 ? Array.Empty<string>().ToList() : プログラムテーマ_ジャンルs.Select(x => GetGenreGuid(x)).ToList(),
+            //            InputCompleted = "0",
+            //        }
+            //    };
+            //    requestBodyList.Add(requestBody);
+            //}
+            //book.Close();
 
             using var client = new HttpClient();
             foreach (var request in requestBodyList)
             {
 
-                var message = new HttpRequestMessage(HttpMethod.Post, "https://webapi20210430062843.azurewebsites.net/api/CreateProgram");
+                var message = new HttpRequestMessage(HttpMethod.Post, "https://localhost/api/CreateProgram");
                 message.Headers.Add("authorization", "aaaaa");
 
                 var text = JsonSerializer.Serialize(request);
