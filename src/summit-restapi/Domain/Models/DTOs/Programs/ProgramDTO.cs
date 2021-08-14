@@ -43,6 +43,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                 },
                 UdTalkWebURL = p.Track?.UdTalkWebURL,
                 UdTalkAppURL = p.Track?.UdTalkAppURL,
+                //収録配信セッション時はProgramのBroadcastingURLを登録するので、こっちが優先。
+                //収録配信セッション以外はTrackのBroadcastingURLを使用。
+                BroadcastingURL = !string.IsNullOrEmpty(p.BroadcastingURL) ? p.BroadcastingURL : p.Track?.BroadcastingURL,
                 ProgramOwners = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,
