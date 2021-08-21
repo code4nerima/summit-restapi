@@ -42,7 +42,8 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
                         ZhTw = x.Name_Zh_Tw,
                         ZhCn = x.Name_Zh_Cn
                     },
-                    BroadcastingURL = x.BroadcastingURL,
+                    BroadcastingURL_1stDay = x.BroadcastingURL_1stDay,
+                    BroadcastingURL_2ndDay = x.BroadcastingURL_2ndDay,
                     MeetingId = x.MeetingId,
                     MeetingPasscode = x.MeetingPasscode,
                     MeetingUrl = x.MeetingUrl,

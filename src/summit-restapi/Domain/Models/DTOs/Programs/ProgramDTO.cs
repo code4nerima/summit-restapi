@@ -44,8 +44,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                 UdTalkWebURL = p.Track?.UdTalkWebURL,
                 UdTalkAppURL = p.Track?.UdTalkAppURL,
                 //収録配信セッション時はProgramのBroadcastingURLを登録するので、こっちが優先。
-                //収録配信セッション以外はTrackのBroadcastingURLを使用。
-                BroadcastingURL = !string.IsNullOrEmpty(p.BroadcastingURL) ? p.BroadcastingURL : p.Track?.BroadcastingURL,
+                //収録配信セッション以外はTrackのBroadcastingURLを使用。(1日目はBroadcastingURL01,2日目はBroadcastingURL02)
+                BroadcastingURL = !string.IsNullOrEmpty(p.BroadcastingURL) ? p.BroadcastingURL : (p.Date.EndsWith("18") ? p.Track?.BroadcastingURL_1stDay : p.Track?.BroadcastingURL_2ndDay),
                 ProgramOwners = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,
