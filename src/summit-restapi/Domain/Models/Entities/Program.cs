@@ -34,6 +34,17 @@ namespace CfjSummit.Domain.Models.Entities
         public string Description_Ja { private set; get; }
         public string Description_En { private set; get; }
         public string Description_Zh_Tw { private set; get; }
+
+        public void RemoveChildItems()
+        {
+            _programGenres.Clear();
+            _programLinks.Clear();
+            _programPresenters.ForEach(x => x.ClearProgramPresenterLinks());
+            _programGrarecos.Clear();
+            _programUserProfiles.Clear();
+            _programGrarecos.Clear();
+        }
+
         public string Description_Zh_Cn { private set; get; }
         [Required]
         public string Date { private set; get; }
