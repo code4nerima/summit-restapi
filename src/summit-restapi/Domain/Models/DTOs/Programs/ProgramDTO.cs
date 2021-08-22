@@ -17,6 +17,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("members")]
         public List<ProgramMemberDTO> ProgramMembers { set; get; } = new();
 
+        [JsonPropertyName("grarecos")]
+        public List<ProgramGrarecoDTO> ProgramGrarecos { set; get; } = new();
+
         public static ProgramDTO CreateDto(Program p)
         {
             var dto = new ProgramDTO()
@@ -98,6 +101,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                                                 SortOrder = x.SortOrder,
                                                 Url = x.Url
                                             }).ToList(),
+                ProgramGrarecos = p.ProgramGrarecos.OrderBy(x => x.SortOrder)
+                                                   .Select(x => ProgramGrarecoDTO.CreateDto(x))
+                                                   .ToList(),
             };
             return dto;
 

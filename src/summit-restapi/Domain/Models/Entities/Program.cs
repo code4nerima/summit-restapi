@@ -53,6 +53,12 @@ namespace CfjSummit.Domain.Models.Entities
         {
             _programUserProfiles.RemoveAll(x => x.ProgramRole == (int)ProgramRoleEnum.Member);
         }
+
+        internal void RemoveProgramGrareco(ProgramGrareco programGrareco)
+        {
+            _programGrarecos.Remove(programGrareco);
+        }
+
         public string EndTime { private set; get; }
         public string Email { private set; get; }
         public string InputCompleted { private set; get; } = "0";
@@ -130,6 +136,9 @@ namespace CfjSummit.Domain.Models.Entities
         public void AddRangeProgramLinks(IReadOnlyList<ProgramLink> programLinks) => _programLinks.AddRange(programLinks);
         public void ClearProgramLinks() => _programLinks.Clear();
 
+        private readonly List<ProgramGrareco> _programGrarecos = new();
+        public IReadOnlyCollection<ProgramGrareco> ProgramGrarecos => _programGrarecos;
+        public void AddProgramGrareco(ProgramGrareco programGrareco) => _programGrarecos.Add(programGrareco);
 
     }
 }
