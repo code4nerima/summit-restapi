@@ -21,6 +21,8 @@ namespace CfjSummit.Domain.Models.Entities
         public virtual string Name_Zh_Tw { get; private set; }
         public virtual string Name_Zh_Cn { get; private set; }
         public virtual string BroadcastingURL { get; private set; }
+        public virtual string BroadcastingURL_1stDay { get; private set; }
+        public virtual string BroadcastingURL_2ndDay { get; private set; }
         public virtual string MeetingId { get; private set; }
         public virtual string MeetingPasscode { get; private set; }
         public virtual string MeetingUrl { get; private set; }
@@ -46,7 +48,8 @@ namespace CfjSummit.Domain.Models.Entities
             Name_En = dto.Name.En;
             Name_Zh_Tw = dto.Name.ZhTw;
             Name_Zh_Cn = dto.Name.ZhCn;
-            BroadcastingURL = dto.BroadcastingURL;
+            BroadcastingURL_1stDay = dto.BroadcastingURL_1stDay;
+            BroadcastingURL_2ndDay = dto.BroadcastingURL_2ndDay;
             MeetingId = dto.MeetingId;
             MeetingPasscode = dto.MeetingPasscode;
             MeetingUrl = dto.MeetingUrl;

@@ -29,6 +29,7 @@ namespace CfjSummit.WebApi.Controllers
 
             return new GetProgramResponse()
             {
+                Result = item.ProgramGuid != null ? "1" : "-1",
                 Data = item
             };
         }

@@ -6,9 +6,10 @@ namespace CfjSummit.Domain.Models.DTOs.Tracks
     {
         [JsonPropertyName("name")]
         public MultilingualValue Name { set; get; }
-
-        [JsonPropertyName("broadcastingURL")]
-        public virtual string BroadcastingURL { get; set; }
+        [JsonPropertyName("broadcastingURL01")]
+        public virtual string BroadcastingURL_1stDay { get; set; }
+        [JsonPropertyName("broadcastingURL02")]
+        public virtual string BroadcastingURL_2ndDay { get; set; }
         [JsonPropertyName("meetingId")]
         public virtual string MeetingId { get; set; }
         [JsonPropertyName("meetingPasscode")]
