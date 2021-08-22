@@ -17,6 +17,7 @@ namespace CfjSummit.Infrastructure.Repositories
         {
             return await _table
                 .Include(x => x.ProgramGenres)
+                .Include(x => x.ProgramLinks)
                 .SingleOrDefaultAsync(x => x.ProgramGuid == programGuid);
 
         }
