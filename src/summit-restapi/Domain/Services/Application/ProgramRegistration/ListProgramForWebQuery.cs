@@ -1,5 +1,6 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
 using CfjSummit.Domain.Repositories;
+using CfjSummit.Domain.Services.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,11 +25,6 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
     internal class ListProgramForWebQueryHandler : IRequestHandler<ListProgramForWebQuery, List<ListProgramForWebResponseDTO>>
     {
         private readonly IProgramRepository _repository;
-
-        private const string Ja = "ja";
-        private const string En = "en";
-        private const string ZhTw = "zh_tw";
-        private const string ZhCn = "zh_cn";
 
         public ListProgramForWebQueryHandler(IProgramRepository repository)
         {
@@ -62,30 +58,11 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         StartTime = pg.StartTime,
                         EndTime = pg.EndTime,
                         InputCompleted = pg.InputCompleted,
-                        Title = request.Lang switch
-                        {
-                            Ja => pg.Title_Ja,
-                            En => pg.Title_En ?? pg.Title_Ja,
-                            ZhTw => pg.Title_Zh_Tw ?? pg.Title_Ja,
-                            ZhCn => pg.Title_Zh_Cn ?? pg.Title_Ja,
-                            _ => throw new Exception()
-                        },
-                        Description = request.Lang switch
-                        {
-                            Ja => pg.Description_Ja,
-                            En => pg.Description_En ?? pg.Description_Ja,
-                            ZhTw => pg.Description_Zh_Tw ?? pg.Description_Ja,
-                            ZhCn => pg.Description_Zh_Cn ?? pg.Description_Ja,
-                            _ => throw new Exception()
-                        },
-                        ProgramPresenterNames = pg.ProgramPresenters.OrderBy(pg => pg.SortOrder).Select(pp => request.Lang switch
-                        {
-                            Ja => pp.Name_Ja,
-                            En => pp.Name_En ?? pp.Name_Ja,
-                            ZhTw => pp.Name_Zh_Tw ?? pp.Name_Ja,
-                            ZhCn => pp.Name_Zh_Cn ?? pp.Name_Ja,
-                            _ => throw new Exception()
-                        }).ToList(),
+                        Title = MultilingualConverter.GetValueByLang(request.Lang, pg.Title_Ja, pg.Title_En, pg.Title_Zh_Tw, pg.Title_Zh_Cn),
+                        Description = MultilingualConverter.GetValueByLang(request.Lang, pg.Description_Ja, pg.Description_En, pg.Description_Zh_Tw, pg.Description_Zh_Cn),
+                        ProgramPresenterNames = pg.ProgramPresenters.OrderBy(pg => pg.SortOrder)
+                                                                    .Select(pp => MultilingualConverter.GetValueByLang(request.Lang, pp.Name_Ja, pp.Name_En, pp.Name_Zh_Tw, pp.Name_Zh_Cn))
+                                                                    .ToList()
                     }).ToList()
                 }).ToList();
         }
