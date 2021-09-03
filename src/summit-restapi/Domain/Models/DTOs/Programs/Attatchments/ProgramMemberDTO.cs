@@ -12,5 +12,9 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
 
         [JsonPropertyName("photoURL")]
         public string PhotoURL { get; set; }
+
+        [JsonPropertyName("staffRole")]
+        public int StaffRole { set; get; }
+
     }
 }

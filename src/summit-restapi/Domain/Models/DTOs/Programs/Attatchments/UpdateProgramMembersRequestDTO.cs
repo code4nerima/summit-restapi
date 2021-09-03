@@ -6,6 +6,15 @@ namespace CfjSummit.Domain.Models.DTOs.Programs.Attatchments
     public class UpdateProgramMembersRequestDTO : ProgramKeyDataDTO
     {
         [JsonPropertyName("members")]
-        public List<string> MemberUids { get; set; }
+        public List<ProgramMemberDetailDTO> MemberDetailDTOs { get; set; }
+    }
+    public class ProgramMemberDetailDTO
+    {
+        [JsonPropertyName("uid")]
+        public string Uid { get; set; }
+
+        [JsonPropertyName("staffRole")]
+        public int StaffRole { get; set; }
+
     }
 }

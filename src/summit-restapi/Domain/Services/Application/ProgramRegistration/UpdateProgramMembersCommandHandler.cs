@@ -1,6 +1,7 @@
 ﻿using CfjSummit.Domain.Models.Entities;
 using CfjSummit.Domain.Repositories;
 using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,11 +27,12 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             var program = await _repository.GetProgramWithUserProfilesAsync(request.UpdateProgramMembersRequestDTO.ProgramGuid);
 
             program.ClearProgramMember();
-            var userProfileIds = _userProfileRepository.GetAll()
-                .Where(x => request.UpdateProgramMembersRequestDTO.MemberUids.Contains(x.Uid))
-                .Select(x => x.Id)
-                .ToList();
-            program.AddRangeProgramMembers(userProfileIds);
+
+            var userDic = _userProfileRepository.GetAll().ToDictionary(x => x.Uid, x => x.Id);
+
+            var tps = request.UpdateProgramMembersRequestDTO.MemberDetailDTOs.Select(x => Tuple.Create(userDic[x.Uid], x.StaffRole)).ToList();
+            program.AddRangeProgramMembers(tps);
+
             _repository.Update(program);
             return await _repository.SaveChangesAsync();
 

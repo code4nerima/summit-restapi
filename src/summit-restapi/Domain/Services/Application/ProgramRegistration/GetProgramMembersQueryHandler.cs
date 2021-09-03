@@ -31,7 +31,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     ZhTw = x.UserProfile.Name_Zh_Tw,
                     ZhCn = x.UserProfile.Name_Zh_Cn
                 },
-                PhotoURL = x.UserProfile.PhotoURL
+                PhotoURL = x.UserProfile.PhotoURL,
+                StaffRole = x.StaffRole
             }).ToList();
             return new GetProgramMembersResponseDTO()
             {

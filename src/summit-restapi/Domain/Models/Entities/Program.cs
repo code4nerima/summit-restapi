@@ -1,4 +1,5 @@
 ﻿using CfjSummit.Domain.Models.DTOs.Programs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -71,9 +72,9 @@ namespace CfjSummit.Domain.Models.Entities
             _programUserProfiles.AddRange(items);
         }
 
-        public void AddRangeProgramMembers(IReadOnlyList<long> userProfileIds)
+        public void AddRangeProgramMembers(IReadOnlyList<Tuple<long, int>> userProfileIds)
         {
-            var items = userProfileIds.Select(userProfileId => new ProgramUserProfile((int)ProgramRoleEnum.Member, Id, userProfileId));
+            var items = userProfileIds.Select(userProfileId => new ProgramUserProfile((int)ProgramRoleEnum.Member, Id, userProfileId.Item1, userProfileId.Item2));
             _programUserProfiles.AddRange(items);
         }
 
