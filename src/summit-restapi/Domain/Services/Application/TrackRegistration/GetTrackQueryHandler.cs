@@ -41,7 +41,9 @@ namespace CfjSummit.Domain.Services.Application.TrackRegistration
                     StreamKey = x.StreamKey,
                     StreamUrl = x.StreamUrl,
                     UdTalkWebURL = x.UdTalkWebURL,
-                    UdTalkAppURL = x.UdTalkAppURL
+                    UdTalkAppURL = x.UdTalkAppURL,
+                    UdtalkSrURL = x.UdtalkSrURL,
+                    Memo = x.Memo
                 })
                 .SingleOrDefaultAsync(x => x.TrackGuid == request.TrackGuid, cancellationToken: cancellationToken);
             return trackDto;
