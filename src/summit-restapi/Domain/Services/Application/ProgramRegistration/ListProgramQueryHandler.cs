@@ -84,7 +84,9 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                         },
                         StaffRole = x.StaffRole
                     }).ToList(),
-
+                    ProgramMemberUids = p.ProgramMemberUserProfiles.Select(x => x.UserProfile.Uid).ToList(),
+                    ProgramOwnerUids = p.ProgramOwnerUserProfiles.Select(x => x.UserProfile.Uid).ToList(),
+                    ProgramPresenterIds = p.ProgramPresenters.Select(x => x.ProgramPresenterGuid).ToList(),
                 }).ToList()
             };
         }
