@@ -64,6 +64,7 @@ namespace CfjSummit.Domain.Models.Entities
         public string Email { private set; get; }
         public string InputCompleted { private set; get; } = "0";
         public virtual string BroadcastingURL { get; private set; }
+        public virtual string PresentationURL { get; private set; }
 
 
         public void AddRangeProgramOwners(IReadOnlyList<long> userProfileIds)
@@ -100,6 +101,7 @@ namespace CfjSummit.Domain.Models.Entities
             Email = dto.Email;
             InputCompleted = dto.InputCompleted;
             BroadcastingURL = dto.BroadcastingURL;
+            PresentationURL = dto.PresentationURL;
             _programLinks.Clear();
             _programLinks.AddRange(dto.ProgramLinks.Select(pl => new ProgramLink(pl)));
         }

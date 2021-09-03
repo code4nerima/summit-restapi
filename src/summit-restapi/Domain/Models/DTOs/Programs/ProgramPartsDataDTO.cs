@@ -44,6 +44,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
         [JsonPropertyName("broadcastingURL")]
         public virtual string BroadcastingURL { get; set; }
 
+        [JsonPropertyName("presentationURL")]
+        public virtual string PresentationURL { get; set; }
         [JsonPropertyName("genreIds")]
         public List<string> GenreGuids { set; get; } = new();
 
