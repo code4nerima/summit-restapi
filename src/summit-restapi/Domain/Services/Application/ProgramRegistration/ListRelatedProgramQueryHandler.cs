@@ -26,6 +26,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                                             .Include(x => x.Track)
                                             .Include(x => x.ProgramGenres)
                                             .ThenInclude(x => x.Genre)
+                                            .Include(x => x.ProgramPresenters)
                                             .ToListAsync(cancellationToken);
 
             return new ListRelatedProgramResponseDTO()
