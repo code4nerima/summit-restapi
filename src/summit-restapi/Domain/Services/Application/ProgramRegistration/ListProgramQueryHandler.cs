@@ -29,6 +29,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .ThenInclude(x => x.Genre)
                 .Include(x => x.ProgramUserProfiles)
                 .ThenInclude(x => x.UserProfile)
+                .Include(x => x.ProgramPresenters)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
