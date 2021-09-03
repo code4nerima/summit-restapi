@@ -6,6 +6,6 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
     public class ListProgramResponseDTO : ListResponseDTO
     {
         [JsonPropertyName("programs")]
-        public List<ProgramPartsDataDTO> Programs { get; set; }
+        public List<ProgramDTO> Programs { get; set; }
     }
 }

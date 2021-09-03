@@ -1,5 +1,6 @@
 ﻿using CfjSummit.Domain.Models.DTOs;
 using CfjSummit.Domain.Models.DTOs.Programs;
+using CfjSummit.Domain.Models.DTOs.Programs.Attatchments;
 using CfjSummit.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                 .Include(x => x.Track)
                 .Include(x => x.ProgramGenres)
                 .ThenInclude(x => x.Genre)
+                .Include(x => x.ProgramUserProfiles)
+                .ThenInclude(x => x.UserProfile)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.StartTime)
                 .Skip(request.ListProgramRequestDTO.Start)
@@ -35,7 +38,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
             return new ListProgramResponseDTO()
             {
                 TotalCount = query.Count,
-                Programs = query.Select(p => new ProgramPartsDataDTO()
+                Programs = query.Select(p => new ProgramDTO()
                 {
                     ProgramGuid = p.ProgramGuid,
                     Category = p.ProgramCategory,
@@ -67,7 +70,21 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     },
                     Email = p.Email,
                     InputCompleted = p.InputCompleted,
-                    GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList()
+                    GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList(),
+                    ProgramMembers = p.ProgramMemberUserProfiles.Select(x => new ProgramMemberDTO()
+                    {
+                        Uid = x.UserProfile.Uid,
+                        UserName = new MultilingualValue()
+                        {
+                            Ja = x.UserProfile.Name_Ja,
+                            Ja_Kana = x.UserProfile.Name_Ja_Kana,
+                            En = x.UserProfile.Name_En,
+                            ZhTw = x.UserProfile.Name_Zh_Tw,
+                            ZhCn = x.UserProfile.Name_Zh_Cn
+                        },
+                        StaffRole = x.StaffRole
+                    }).ToList(),
+
                 }).ToList()
             };
         }

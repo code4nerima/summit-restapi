@@ -71,7 +71,8 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                         En = x.UserProfile.Name_En,
                         ZhTw = x.UserProfile.Name_Zh_Tw,
                         ZhCn = x.UserProfile.Name_Zh_Cn
-                    }
+                    },
+                    StaffRole = x.StaffRole
                 }).ToList(),
                 Description = new MultilingualValue()
                 {
