@@ -26,6 +26,10 @@ namespace CfjSummit.Domain.Models.DTOs.Tracks
         public virtual string UdTalkWebURL { get; set; }
         [JsonPropertyName("udtalkAppURL")]
         public virtual string UdTalkAppURL { get; set; }
+        [JsonPropertyName("udtalkSrURL")]
+        public virtual string UdtalkSrURL { get; set; }
+        [JsonPropertyName("memo")]
+        public virtual string Memo { get; set; }
 
     }
 }

@@ -31,7 +31,8 @@ namespace CfjSummit.Domain.Models.Entities
         public virtual string StreamUrl { get; private set; }
         public virtual string UdTalkWebURL { get; private set; }
         public virtual string UdTalkAppURL { get; private set; }
-
+        public virtual string UdtalkSrURL { get; private set; }
+        public virtual string Memo { get; private set; }
 
         private readonly List<Program> _programs = new();
         public IReadOnlyCollection<Program> Programs => _programs;
@@ -58,6 +59,8 @@ namespace CfjSummit.Domain.Models.Entities
             StreamUrl = dto.StreamUrl;
             UdTalkWebURL = dto.UdTalkWebURL;
             UdTalkAppURL = dto.UdTalkAppURL;
+            UdtalkSrURL = dto.UdtalkSrURL;
+            Memo = dto.Memo;
         }
     }
 }
