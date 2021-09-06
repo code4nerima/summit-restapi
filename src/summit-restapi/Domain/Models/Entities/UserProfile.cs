@@ -1,10 +1,12 @@
 ﻿using CfjSummit.Domain.Models.DTOs.UserProfiles;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
 namespace CfjSummit.Domain.Models.Entities
 {
+    [Index(nameof(Uid), IsUnique = true)]
     public class UserProfile : Entity
     {
         private UserProfile()
