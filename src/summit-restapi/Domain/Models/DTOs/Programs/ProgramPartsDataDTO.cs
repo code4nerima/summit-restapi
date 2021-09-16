@@ -46,6 +46,10 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
 
         [JsonPropertyName("presentationURL")]
         public virtual string PresentationURL { get; set; }
+
+        [JsonPropertyName("grarecoWorkingURL")]
+        public virtual string GrarecoWorkingURL { get; set; }
+
         [JsonPropertyName("genreIds")]
         public List<string> GenreGuids { set; get; } = new();
 
