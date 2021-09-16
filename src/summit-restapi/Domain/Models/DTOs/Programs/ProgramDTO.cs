@@ -59,6 +59,7 @@ namespace CfjSummit.Domain.Models.DTOs.Programs
                 //収録配信セッション以外はTrackのBroadcastingURLを使用。(1日目はBroadcastingURL01,2日目はBroadcastingURL02)
                 BroadcastingURL = !string.IsNullOrEmpty(p.BroadcastingURL) ? p.BroadcastingURL : (p.Date.EndsWith("18") ? p.Track?.BroadcastingURL_1stDay : p.Track?.BroadcastingURL_2ndDay),
                 PresentationURL = p.PresentationURL,
+                GrarecoWorkingURL = p.GrarecoWorkingURL,
                 ProgramOwners = p.ProgramOwnerUserProfiles.Select(x => new ProgramOwnerDTO()
                 {
                     Uid = x.UserProfile.Uid,

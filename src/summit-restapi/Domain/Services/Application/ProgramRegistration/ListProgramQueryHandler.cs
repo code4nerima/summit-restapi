@@ -71,6 +71,7 @@ namespace CfjSummit.Domain.Services.Application.ProgramRegistration
                     },
                     Email = p.Email,
                     InputCompleted = p.InputCompleted,
+                    GrarecoWorkingURL = p.GrarecoWorkingURL,
                     GenreGuids = p.ProgramGenres.Select(x => x.Genre.GenreGuid).ToList(),
                     ProgramMembers = p.ProgramMemberUserProfiles.Select(x => new ProgramMemberDTO()
                     {
